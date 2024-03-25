@@ -10,7 +10,10 @@ export default function StyledText({
   small,
   medium,
   big,
+  extraMedium,
+  extraSmall,
   children,
+  textAlign = "auto",
   ...restOfProps
 }) {
   const styles = StyleSheet.create({
@@ -30,8 +33,13 @@ export default function StyledText({
         ? theme.font.medium.fontSize
         : big
         ? theme.font.big.fontSize
+        : extraMedium
+        ? theme.font.extraMedium.fontSize
+        : extraSmall
+        ? theme.font.extraSmall.fontSize
         : theme.font.normal.fontSize,
       color: hint ? theme.colors.text.hint : theme.colors.text.default,
+      textAlign: textAlign,
     },
   });
   return (
