@@ -19,11 +19,13 @@ export const theme = {
       regular: "Poppins Regular",
       bold: "Poppins Bold",
       extraBold: "Poppins SemiBold",
-      black: "Poppins Black"
+      black: "Poppins Black",
     },
     small: { fontSize: 10 },
     normal: { fontSize: 12 },
     medium: { fontSize: 18 },
     big: { fontSize: 48 },
+    extraMedium: { fontSize: 32 },
+    extraSmall: { fontSize: 16 },
   },
 };
