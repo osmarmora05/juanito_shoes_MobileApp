@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import { theme } from "./src/theme";
+import Constants from 'expo-constants'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,5 +32,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg.default,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Constants.statusBarHeight
   },
 });
