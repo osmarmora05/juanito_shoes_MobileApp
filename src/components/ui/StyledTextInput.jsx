@@ -24,6 +24,30 @@ export default function StyledTextInput({
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    textInput: {
+      maxWidth: 320,
+      width: "100%",
+      height: 48,
+      borderRadius: 14,
+      paddingLeft: 16,
+      paddingRight: password ? 45 : 16,
+      backgroundColor: theme.colors.bg.defaultDark,
+    },
+    icon: {
+      position: "absolute",
+      right: 60,
+      width: 24,
+      height: 24,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -49,26 +73,3 @@ export default function StyledTextInput({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textInput: {
-    maxWidth: 320,
-    width: "100%",
-    height: 48,
-    borderRadius: 14,
-    paddingLeft: 16,
-    paddingRight: 45,
-    backgroundColor: theme.colors.bg.defaultDark,
-  },
-  icon: {
-    position: "absolute",
-    right: 60,
-    width: 24,
-    height: 24,
-  },
-});
