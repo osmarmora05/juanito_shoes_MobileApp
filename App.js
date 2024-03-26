@@ -1,8 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import { theme } from "./src/theme";
-import Constants from 'expo-constants'
+import Constants from "expo-constants";
+import SignIn from "./src/screens/login/SignIn";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -11,17 +11,13 @@ export default function App() {
     [theme.font.fonts.bold.toString()]: require("./assets/fonts/Poppins-Bold.ttf"),
     [theme.font.fonts.extraBold.toString()]: require("./assets/fonts/Poppins-SemiBold.ttf"),
     [theme.font.fonts.black.toString()]: require("./assets/fonts/Poppins-Black.ttf"),
-
   });
 
   if (!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
-      <Text>
-        Open up App.js to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
+      <SignIn />
     </View>
   );
 }
@@ -29,9 +25,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.bg.default,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: Constants.statusBarHeight
   },
 });

@@ -8,7 +8,10 @@ export default function StyledTextInput({
   emailAddress,
   phone,
   password,
-  ...restOfProps
+  placeholder,
+  name,
+  value,
+  handleOnchange,
 }) {
   if (
     (emailAddress && phone) ||
@@ -32,7 +35,7 @@ export default function StyledTextInput({
       alignItems: "center",
     },
     textInput: {
-      maxWidth: 320,
+      maxWidth: 800,
       width: "100%",
       height: 48,
       borderRadius: 14,
@@ -42,7 +45,7 @@ export default function StyledTextInput({
     },
     icon: {
       position: "absolute",
-      right: 60,
+      right: 20,
       width: 24,
       height: 24,
     },
@@ -56,7 +59,9 @@ export default function StyledTextInput({
         keyboardType={
           emailAddress ? "email-address" : phone ? "phone-pad" : "default"
         }
-        {...restOfProps}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={handleOnchange}
       />
       <TouchableOpacity onPress={toggleShowPassword} style={styles.icon}>
         {password && (
@@ -72,4 +77,3 @@ export default function StyledTextInput({
     </View>
   );
 }
-

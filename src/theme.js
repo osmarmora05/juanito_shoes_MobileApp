@@ -10,6 +10,7 @@ export const theme = {
     text: {
       default: "#2B2B2B",
       hint: "#6A6A6A",
+      defaultLight: "#fff"
     },
   },
 
