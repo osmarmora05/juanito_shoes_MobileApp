@@ -14,3 +14,12 @@ export function showCustomToast(type, text1, text2) {
     },
   });
 }
+
+export function isEmail(text) {
+  let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  if (reg.test(text) === false) {
+    return false;
+  } else {
+    return true;
+  }
+}

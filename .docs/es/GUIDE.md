@@ -16,3 +16,6 @@
 # Touchable compatibles con todas las plataformas
 
 <img src="./assets/img/Touchable.png" alt="Touchables"/>
+
+# Navegacion:
+- [Stack Navigator](https://reactnavigation.org/docs/stack-navigator/)

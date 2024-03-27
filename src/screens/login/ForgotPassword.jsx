@@ -1,41 +1,40 @@
-import { Formik } from "formik";
-import Toast from "react-native-toast-message";
 import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
   KeyboardAvoidingView,
+  ScrollView,
+  View,
+  StyleSheet,
   Dimensions,
 } from "react-native";
 import LoginScreenHeader from "../../components/LoginScreenHeader";
+import { Formik } from "formik";
+import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
-import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
-import { isEmail, showCustomToast } from "../../utils";
 import { theme } from "../../theme";
+import { isEmail, showCustomToast } from "../../utils";
+import Toast from "react-native-toast-message";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
-export default function SignIn({ navigation }) {
+export default function ForgotPassword() {
   return (
     <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
       <ScrollView>
         <View style={styles.mainView}>
           <View style={styles.container}>
             <LoginScreenHeader
-              title={"¡Hola de nuevo!"}
-              description={`Completa tus datos`}
+              title={"Has olvidado tu contraseña"}
+              description={
+                "Ingrese su cuenta de correo electrónico para enviar el codigo de verificacion"
+              }
             />
             <Formik
               initialValues={{
                 email: "",
-                password: "",
+                code: "",
               }}
-              onSubmit={(values, actions) => {
-                // console.log(values);
-
-                if (values.email.length == 0 && values.password.length == 0) {
+              onSubmit={(values) => {
+                if (values.email.length == 0 && values.code.length == 0) {
                   showCustomToast(
                     "error",
                     "Ups!",
@@ -57,11 +56,11 @@ export default function SignIn({ navigation }) {
                       );
 
                       return;
-                    } else if (property == "password") {
+                    } else if (property == "code") {
                       showCustomToast(
                         "error",
                         "Ups!",
-                        "Ups! Olvidastes llenar el campo Contraseña"
+                        "Ups! Olvidastes llenar el campo Codigo"
                       );
                       return;
                     } else {
@@ -90,7 +89,7 @@ export default function SignIn({ navigation }) {
                 showCustomToast("success", "Éxito", "Todo correcto");
               }}
             >
-              {({ handleChange, values, handleSubmit, resetForm }) => (
+              {({ handleChange, values, handleSubmit }) => (
                 <View style={styles.box}>
                   <View style={styles.fieldContainer}>
                     <View>
@@ -98,42 +97,26 @@ export default function SignIn({ navigation }) {
                         Dirección de correo electrónico
                       </StyledText>
                       <StyledTextInput
-                        placeholder="xyz@gmail.com"
+                        placeholder={"xyz@gmail.com"}
                         value={values.email}
                         handleOnchange={handleChange("email")}
-                        emailAddress
                       />
                     </View>
                     <View>
-                      <StyledText extraSmall>Contraseña</StyledText>
+                      <StyledText extraSmall>Codigo</StyledText>
                       <StyledTextInput
-                        password
-                        placeholder="Contraseña"
-                        value={values.password}
-                        handleOnchange={handleChange("password")}
+                        placeholder={"xxxxxxxx"}
+                        value={values.code}
+                        handleOnchange={handleChange("code")}
+                        emailAddress
                       />
-                      <TouchableOpacity
-                        style={styles.touchablForgetPassword}
-                        onPress={() => navigation.navigate("ForgotPassword")}
-                      >
-                        <StyledText hint textAlign="right">
-                          ¿Olvidaste tu contraseña?
-                        </StyledText>
-                      </TouchableOpacity>
                     </View>
                   </View>
                   <View style={styles.buttonContainer}>
                     <StyledPrimaryButton
-                      text={"Iniciar sesión"}
+                      text={"Verificar codigo"}
                       handleOnPress={handleSubmit}
                     />
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("RegisterAccount")}
-                    >
-                      <StyledText medium textAlign="center">
-                        ¿Nuevo Usuario? Crear una cuenta
-                      </StyledText>
-                    </TouchableOpacity>
                   </View>
                 </View>
               )}
@@ -153,14 +136,14 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg.default,
   },
   mainView: {
-    height: HEIGHT_WINDOW,
+    height: HEIGHT_WINDOW - 56,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   container: {
     maxWidth: "90%",
-    maxHeight: "70%",
+    maxHeight: "84%",
     width: "100%",
     height: "100%",
     justifyContent: "start",
@@ -169,20 +152,16 @@ const styles = StyleSheet.create({
     height: "87.8%",
     justifyContent: "start",
     alignItems: "start",
+    gap: 14,
   },
-
   fieldContainer: {
-    height: "70%",
+    height: "50%",
     justifyContent: "center",
     gap: 30,
   },
 
-  touchablForgetPassword: {
-    marginTop: 10,
-  },
-
   buttonContainer: {
-    height: "30%",
+    height: "29%",
     justifyContent: "space-between",
   },
 });

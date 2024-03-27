@@ -4,7 +4,7 @@ import StyledText from "./ui/StyledText";
 export default function LoginScreenHeader({ title, description }) {
   return (
     <View style={styles.LoginScreenHeaderContainer}>
-      <StyledText extraMedium bold>
+      <StyledText extraMedium bold textAlign="center">
         {title}
       </StyledText>
       <StyledText hint extraSmall textAlign="center">
