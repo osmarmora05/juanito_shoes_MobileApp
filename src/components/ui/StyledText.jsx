@@ -14,6 +14,7 @@ export default function StyledText({
   extraSmall,
   children,
   textAlign = "auto",
+  numberOfLines = 0,
   ...restOfProps
 }) {
   const styles = StyleSheet.create({
@@ -43,7 +44,7 @@ export default function StyledText({
     },
   });
   return (
-    <Text style={styles.text} {...restOfProps}>
+    <Text style={styles.text} {...restOfProps} numberOfLines={numberOfLines}>
       {children}
     </Text>
   );

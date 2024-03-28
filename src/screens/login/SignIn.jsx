@@ -81,14 +81,14 @@ export default function SignIn({ navigation }) {
                   }
                 }
 
-                if (isEmail(values.email) == false) {
-                  showCustomToast(
-                    "info",
-                    "hey!",
-                    "Introduzca un correo electrónico válido"
-                  );
-                  return;
-                }
+                // if (isEmail(values.email) == false) {
+                //   showCustomToast(
+                //     "info",
+                //     "hey!",
+                //     "Introduzca un correo electrónico válido"
+                //   );
+                //   return;
+                // }
 
                 showCustomToast("success", "Éxito", "Todo correcto");
                 // TODO: Agregar timeout para que se muestre el noti de exito
