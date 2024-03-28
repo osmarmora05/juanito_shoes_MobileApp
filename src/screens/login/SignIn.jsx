@@ -14,10 +14,13 @@ import StyledTextInput from "../../components/ui/StyledTextInput";
 import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
 import { isEmail, showCustomToast } from "../../utils";
 import { theme } from "../../theme";
+import { useState } from "react";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
+  const [credentials, setCredentials] = useState(false);
+
   return (
     <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
       <ScrollView>
@@ -88,6 +91,8 @@ export default function SignIn({ navigation }) {
                 }
 
                 showCustomToast("success", "Éxito", "Todo correcto");
+                // TODO: Agregar timeout para que se muestre el noti de exito
+                navigation.navigate("Home");
               }}
             >
               {({ handleChange, values, handleSubmit, resetForm }) => (

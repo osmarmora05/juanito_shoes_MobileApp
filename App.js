@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import { theme } from "./src/theme";
 import Constants from "expo-constants";
-import Navigation from "./src/Navigation";
+import AuthNavigator from "./src/navigations/AuthNavigator";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Navigation/>
+      <AuthNavigator/>
     </View>
   );
 }
