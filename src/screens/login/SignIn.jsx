@@ -15,6 +15,7 @@ import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
 import { isEmail, showCustomToast } from "../../utils";
 import { theme } from "../../theme";
 import { useState } from "react";
+import QuantityOfProducts from "../../components/QuantityOfProducts";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
@@ -92,7 +93,9 @@ export default function SignIn({ navigation }) {
 
                 showCustomToast("success", "Éxito", "Todo correcto");
                 // TODO: Agregar timeout para que se muestre el noti de exito
-                navigation.navigate("Home");
+                // navigation.navigate("Home");
+                navigation.navigate("HomeTab");
+
               }}
             >
               {({ handleChange, values, handleSubmit, resetForm }) => (
@@ -145,6 +148,7 @@ export default function SignIn({ navigation }) {
             </Formik>
           </View>
         </View>
+        <QuantityOfProducts/>
       </ScrollView>
       <Toast />
     </KeyboardAvoidingView>

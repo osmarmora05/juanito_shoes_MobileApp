@@ -1,5 +1,4 @@
-import { View, StyleSheet, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, StyleSheet, TouchableOpacity,Image } from "react-native";
 import Plus from "../../assets/icons/plus.svg";
 import StyledText from "./ui/StyledText";
 import { theme } from "../theme";
@@ -10,7 +9,10 @@ export default function ProductCard(props) {
   return (
     <View style={styles.mainBox}>
       <View style={styles.box}>
-        <Image style={styles.image} source={{ uri: `${item.Imagen}` }} />
+        <Image
+          style={styles.image}
+          source={{ uri: `${item.Imagen}` }}
+        />
         <View style={styles.infoContainer}>
           <StyledText extraSmall textAlign="left" numberOfLines={1}>
             {item.Nombre}
@@ -30,7 +32,6 @@ export default function ProductCard(props) {
 const styles = StyleSheet.create({
   mainBox: {
     flex: 1,
-    margin: 20,
     width: 150,
     height: 180,
     backgroundColor: theme.colors.bg.default,

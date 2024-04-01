@@ -31,7 +31,7 @@ export default function AuthNavigator() {
           }}
         />
         <Stack.Screen
-          name="Home"
+          name="HomeTab"
           component={BottomTabNavigator}
           options={{ headerShown: false }}
         />

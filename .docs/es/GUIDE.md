@@ -13,6 +13,10 @@
 
 - [formik](https://formik.org/docs/overview)
 
+## Animaciones
+- [docs](https://docs.swmansion.com/react-native-reanimated/)
+- [ejemplo](https://www.youtube.com/watch?app=desktop&v=XKXozpe4_k0)
+
 # Touchable compatibles con todas las plataformas
 
 <img src="./assets/img/Touchable.png" alt="Touchables"/>

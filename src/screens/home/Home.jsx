@@ -3,16 +3,21 @@ import { useState, useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
 import data from "../../data/products.json";
 import { FlatList } from "react-native-gesture-handler";
+import { theme } from "../../theme";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [productData, setProductData] = useState([]);
 
   const renderItem = ({ item, index }) => {
     return (
-      <View>
-        <ProductCard item={item}/>
-      </View>
-      //   </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.productCardcontainer}
+        onPress={() => {
+          navigation.navigate("ProductDetails", { data: item });
+        }}
+      >
+        <ProductCard item={item} />
+      </TouchableOpacity>
     );
   };
 
@@ -23,8 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-    <View style={{ flex: 1}}>
-      {/* <Text>Hola desde home</Text> */}
+    <View style={styles.container}>
       {/* <ProductCard /> */}
       <FlatList
         data={productData}
@@ -38,7 +42,15 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.bg.defaultDark,
+  },
   contentContainerStyle: {
     alignItems: "center",
+  },
+
+  productCardcontainer: {
+    margin: 20,
   },
 });

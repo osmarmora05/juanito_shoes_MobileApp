@@ -4,9 +4,9 @@
     "Nombre": "Air Jordan 3 Retro Og Cream",
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665628/Juanito_shoes/Air_Jordan_3_Retro_Og_Cream_ymv2qa.png",
     "Precio": "$1000",
-    "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "Cream", // #C4C4B9
-    "Tamaño": "6, 7, 8",
+    "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged ",
+    "Color": "silver", // #C4C4B9
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Zapatillas",
     "cantidad": 1
@@ -17,8 +17,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665628/Juanito_shoes/Air_Jordan_Off-White_Nike_Sneakers_Shoe_Blue_ldkm1g.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "Blue", // #007CAF
-    "Tamaño": "6, 7, 8",
+    "Color": "blue", // #007CAF
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Zapatillas",
     "cantidad": 5
@@ -29,8 +29,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4
@@ -41,8 +41,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4
@@ -53,8 +53,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4
@@ -65,8 +65,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4
@@ -77,8 +77,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4
@@ -89,8 +89,8 @@
     "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665630/Juanito_shoes/Sports_shoes_Nike_Free_Basketball_shoe_White_zame9k.png",
     "Precio": "$500",
     "Descripción": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-    "Color": "White", // #fff
-    "Tamaño": "6, 7, 8",
+    "Color": "white", // #fff
+    "Tamaño": "6",
     "Marca": "Nike",
     "Categoría": "Deportes",
     "cantidad": 4

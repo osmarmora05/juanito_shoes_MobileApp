@@ -1,6 +1,8 @@
 import { Text, StyleSheet } from "react-native";
 import { theme } from "../../theme";
 
+// TODO: use props
+
 export default function StyledText({
   hint,
   light,
@@ -13,6 +15,7 @@ export default function StyledText({
   extraMedium,
   extraSmall,
   children,
+  uppercase,
   textAlign = "auto",
   numberOfLines = 0,
   ...restOfProps
@@ -41,6 +44,7 @@ export default function StyledText({
         : theme.font.normal.fontSize,
       color: hint ? theme.colors.text.hint : theme.colors.text.default,
       textAlign: textAlign,
+      textTransform: uppercase ? "uppercase" : "none",
     },
   });
   return (

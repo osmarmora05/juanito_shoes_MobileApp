@@ -25,7 +25,7 @@ export const theme = {
     small: { fontSize: 10 },
     normal: { fontSize: 12 },
     medium: { fontSize: 18 },
-    big: { fontSize: 48 },
+    big: { fontSize: 132 },
     extraMedium: { fontSize: 32 },
     extraSmall: { fontSize: 16 },
   },
