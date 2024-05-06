@@ -19,8 +19,8 @@ Este repositorio contiene el proyecto final de la clase de Desarrollo de aplicac
 
 | <center><b>Galeria</b></center> |
 | ------------------------------------------------------------------------------------------------------------------ |
-| <img src="./screenshots/prev1.jpg"/> |
-| <img src="./screenshots/prev2.jpg"/> |
+| <img src="./screenshots/prev1.jpg" height="750px" width="350px"/> |
+| <img src="./screenshots/prev2.jpg" height="750px" width="350px"/> |
 
 
 # Guia de instalación
@@ -44,7 +44,7 @@ Para comenzar con "juanito_shoes_MobileApp", siga estos sencillos pasos de insta
     ```
 5. **Pon en marcha el proyecto:**
     ```sh
-    npm run dev
+    npm start
     ```
 
 # Tecnologias
