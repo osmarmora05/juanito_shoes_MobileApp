@@ -18,6 +18,9 @@ import { useState } from "react";
 import QuantityOfProducts from "../../components/QuantityOfProducts";
 import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 
+// Data
+import { loginUsuario } from "../../data/Usuarios";
+
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
@@ -37,8 +40,8 @@ export default function SignIn({ navigation }) {
                 email: "",
                 password: "",
               }}
-              onSubmit={(values, actions) => {
-                // console.log(values);
+              onSubmit={async (values, actions) => {
+                console.log(values);
 
                 if (values.email.length == 0 && values.password.length == 0) {
                   showCustomToast(
@@ -76,27 +79,48 @@ export default function SignIn({ navigation }) {
                         "error",
                         "Ups!",
                         "Ups! Se te paso por alto llenar el campo " +
-                        unfilledField
+                          unfilledField
                       );
                       return;
                     }
                   }
                 }
 
-                // if (isEmail(values.email) == false) {
-                //   showCustomToast(
-                //     "info",
-                //     "hey!",
-                //     "Introduzca un correo electrónico válido"
-                //   );
-                //   return;
-                // }
+                // Validar si es un correo 
+                if (isEmail(values.email) == false) {
+                  showCustomToast(
+                    "info",
+                    "hey!",
+                    "Introduzca un correo electrónico válido"
+                  );
+                  return;
+                }
 
-                showCustomToast("success", "Éxito", "Todo correcto");
-                // TODO: Agregar timeout para que se muestre el noti de exito
-                // navigation.navigate("Home");
-                navigation.navigate("HomeTab");
+                // Busca en pb al usuario digitado
+                const existeUsuario = await loginUsuario(
+                  values.email,
+                  values.password
+                );
 
+                if (existeUsuario) {
+                  showCustomToast(
+                    "success",
+                    "Inicio de sesión exitoso",
+                    "Bienvenido a Juanito store!"
+                  );
+                  setTimeout(() => {
+                    navigation.navigate("HomeTab");
+                  }, 2000);
+                } else {
+                  Toast.show({
+                    type: "error",
+                    text1: "Error de inicio de sesión",
+                    text2:
+                      "El correo y contraseña no son correctos, intente nuevamente.",
+                    position: "top",
+                    visibilityTime: 3000,
+                  });
+                }
               }}
             >
               {({ handleChange, values, handleSubmit, resetForm }) => (
@@ -140,9 +164,13 @@ export default function SignIn({ navigation }) {
                         text={"Iniciar sesión"}
                         handleOnPress={handleSubmit}
                       />
-                      <StyledGoogleButton handleOnPress={() => {
-                        console.log("holi")
-                      }} />
+                      <StyledGoogleButton
+                        handleOnPress={async () => {
+                          console.log("holi")
+                          // const authData = await pb.collection('Usuarios').authWithOAuth2({ provider: 'google' });
+                          // console.log(authData);
+                        }}
+                      />
                     </View>
 
                     <TouchableOpacity
@@ -158,7 +186,6 @@ export default function SignIn({ navigation }) {
             </Formik>
           </View>
         </View>
-        <QuantityOfProducts />
       </ScrollView>
       <Toast />
     </KeyboardAvoidingView>
