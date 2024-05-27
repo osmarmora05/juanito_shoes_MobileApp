@@ -40,61 +40,61 @@ export default function SignIn({ navigation }) {
               onSubmit={(values, actions) => {
                 // console.log(values);
 
-                if (values.email.length == 0 && values.password.length == 0) {
-                  showCustomToast(
-                    "error",
-                    "Ups!",
-                    "Por fi, asegúrate de llenar los campos"
-                  );
-                  return;
-                }
-
-                for (const property in values) {
-                  if (
-                    values[property] == null ||
-                    values[property].length == 0
-                  ) {
-                    if (property == "email") {
-                      showCustomToast(
-                        "error",
-                        "Ups!",
-                        "Ups! Olvidastes llenar el campo Correo"
-                      );
-
-                      return;
-                    } else if (property == "password") {
-                      showCustomToast(
-                        "error",
-                        "Ups!",
-                        "Ups! Olvidastes llenar el campo Contraseña"
-                      );
-                      return;
-                    } else {
-                      const unfilledField =
-                        property.charAt(0).toUpperCase() + property.slice(1);
-                      showCustomToast(
-                        "error",
-                        "Ups!",
-                        "Ups! Se te paso por alto llenar el campo " +
-                        unfilledField
-                      );
-                      return;
-                    }
-                  }
-                }
-
-                // if (isEmail(values.email) == false) {
+                // if (values.email.length == 0 && values.password.length == 0) {
                 //   showCustomToast(
-                //     "info",
-                //     "hey!",
-                //     "Introduzca un correo electrónico válido"
+                //     "error",
+                //     "Ups!",
+                //     "Por fi, asegúrate de llenar los campos"
                 //   );
                 //   return;
                 // }
 
-                showCustomToast("success", "Éxito", "Todo correcto");
-                // TODO: Agregar timeout para que se muestre el noti de exito
-                // navigation.navigate("Home");
+                // for (const property in values) {
+                //   if (
+                //     values[property] == null ||
+                //     values[property].length == 0
+                //   ) {
+                //     if (property == "email") {
+                //       showCustomToast(
+                //         "error",
+                //         "Ups!",
+                //         "Ups! Olvidastes llenar el campo Correo"
+                //       );
+
+                //       return;
+                //     } else if (property == "password") {
+                //       showCustomToast(
+                //         "error",
+                //         "Ups!",
+                //         "Ups! Olvidastes llenar el campo Contraseña"
+                //       );
+                //       return;
+                //     } else {
+                //       const unfilledField =
+                //         property.charAt(0).toUpperCase() + property.slice(1);
+                //       showCustomToast(
+                //         "error",
+                //         "Ups!",
+                //         "Ups! Se te paso por alto llenar el campo " +
+                //         unfilledField
+                //       );
+                //       return;
+                //     }
+                //   }
+                // }
+
+                // // if (isEmail(values.email) == false) {
+                // //   showCustomToast(
+                // //     "info",
+                // //     "hey!",
+                // //     "Introduzca un correo electrónico válido"
+                // //   );
+                // //   return;
+                // // }
+
+                // showCustomToast("success", "Éxito", "Todo correcto");
+                // // TODO: Agregar timeout para que se muestre el noti de exito
+                // // navigation.navigate("Home");
                 navigation.navigate("HomeTab");
 
               }}
