@@ -10,7 +10,7 @@ import LoginScreenHeader from "../../components/LoginScreenHeader";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
 import { Formik } from "formik";
-import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
+import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import { theme } from "../../theme";
 import { isEmail, showCustomToast } from "../../utils";
 import Toast from "react-native-toast-message";

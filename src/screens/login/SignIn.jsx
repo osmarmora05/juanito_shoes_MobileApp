@@ -11,11 +11,12 @@ import {
 import LoginScreenHeader from "../../components/LoginScreenHeader";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
-import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
+import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import { isEmail, showCustomToast } from "../../utils";
 import { theme } from "../../theme";
 import { useState } from "react";
 import QuantityOfProducts from "../../components/QuantityOfProducts";
+import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
@@ -75,7 +76,7 @@ export default function SignIn({ navigation }) {
                         "error",
                         "Ups!",
                         "Ups! Se te paso por alto llenar el campo " +
-                          unfilledField
+                        unfilledField
                       );
                       return;
                     }
@@ -101,6 +102,7 @@ export default function SignIn({ navigation }) {
               {({ handleChange, values, handleSubmit, resetForm }) => (
                 <View style={styles.box}>
                   <View style={styles.fieldContainer}>
+                    {/* Header */}
                     <View>
                       <StyledText extraSmall>
                         Dirección de correo electrónico
@@ -112,6 +114,7 @@ export default function SignIn({ navigation }) {
                         emailAddress
                       />
                     </View>
+                    {/* Main */}
                     <View>
                       <StyledText extraSmall>Contraseña</StyledText>
                       <StyledTextInput
@@ -130,11 +133,18 @@ export default function SignIn({ navigation }) {
                       </TouchableOpacity>
                     </View>
                   </View>
+                  {/* Footer */}
                   <View style={styles.buttonContainer}>
-                    <StyledPrimaryButton
-                      text={"Iniciar sesión"}
-                      handleOnPress={handleSubmit}
-                    />
+                    <View style={styles.innerButtonContainer}>
+                      <StyledPrimaryButton
+                        text={"Iniciar sesión"}
+                        handleOnPress={handleSubmit}
+                      />
+                      <StyledGoogleButton handleOnPress={() => {
+                        console.log("holi")
+                      }} />
+                    </View>
+
                     <TouchableOpacity
                       onPress={() => navigation.navigate("RegisterAccount")}
                     >
@@ -148,7 +158,7 @@ export default function SignIn({ navigation }) {
             </Formik>
           </View>
         </View>
-        <QuantityOfProducts/>
+        <QuantityOfProducts />
       </ScrollView>
       <Toast />
     </KeyboardAvoidingView>
@@ -193,5 +203,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     height: "30%",
     justifyContent: "space-between",
+  },
+
+  innerButtonContainer: {
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    gap: 18,
   },
 });

@@ -1,5 +1,5 @@
 import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
-import { theme } from "../../theme";
+import { theme } from "../../../theme";
 
 export default function StyledPrimaryButton({ text, handleOnPress, icon }) {
   return (

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import LoginScreenHeader from "../../components/LoginScreenHeader";
 import { Formik } from "formik";
-import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
+import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
 import { theme } from "../../theme";

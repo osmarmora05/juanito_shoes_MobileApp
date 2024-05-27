@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import StyledText from "../../components/ui/StyledText";
 import { theme } from "../../theme";
-import StyledPrimaryButton from "../../components/ui/StyledPrimaryButton";
+import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
