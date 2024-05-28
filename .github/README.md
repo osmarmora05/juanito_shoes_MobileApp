@@ -42,6 +42,17 @@ Para comenzar con "juanito_shoes_MobileApp", siga estos sencillos pasos de insta
     ```sh
     npm install
     ```
+
+4. **Establece las variables de entorno:**
+
+    Deberas crear dentro del directorio del proyecto el siguiente archivo: `.env.local` con el siguiente contenido:
+
+    ```JavaScript
+    EXPO_PB_URL=*****
+    ```
+
+    Para obtener el valor de `EXPO_PB_URL` ponte en conctato conmigo
+
 5. **Pon en marcha el proyecto:**
     ```sh
     npm start

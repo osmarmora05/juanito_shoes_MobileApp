@@ -23,3 +23,6 @@
 
 # Navegacion:
 - [Stack Navigator](https://reactnavigation.org/docs/stack-navigator/)
+
+## Cargar variables de entorno
+- [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv)
