@@ -119,15 +119,14 @@ const calculateWidthMultiplier = (text) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.bg.defaultDark,
-    height: HEIGHT_WINDOW,
     width: "100%",
+    height: "100%",
   },
   mainContainer: {
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: "100%",
+    height: HEIGHT_WINDOW,
   },
   innerContainer: {
     maxWidth: "90%",

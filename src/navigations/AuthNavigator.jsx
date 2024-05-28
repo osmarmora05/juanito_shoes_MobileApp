@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegisterAccount from "../screens/login/RegisterAccount";
 import SignIn from "../screens/login/SignIn";
 import ForgotPassword from "../screens/login/ForgotPassword";
-import BottomTabNavigator from "./BottomTabNavigator";
+import HomeNavigator from "./HomeNavigator";
 
 const Stack = createStackNavigator();
 
@@ -32,7 +32,7 @@ export default function AuthNavigator() {
         />
         <Stack.Screen
           name="HomeTab"
-          component={BottomTabNavigator}
+          component={HomeNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

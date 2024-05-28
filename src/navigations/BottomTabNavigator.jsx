@@ -1,12 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeIcon from "../../assets/icons/navigation/home.svg";
+import Home from "../screens/home/Home";
+import HomeIconFilled from "../../assets/icons/navigation/home_filled.svg";
+import HomeIconOutline from '../../assets/icons/navigation/home_outline.svg'
 import History from "../screens/home/History";
-import HistoryIcon from "../../assets/icons/navigation/history.svg";
+import HistoryIconFilled from "../../assets/icons/navigation/history_filled.svg";
+import HistoryIconOutline from "../../assets/icons/navigation/history_outline.svg";
 import Profile from "../screens/home/Profile";
-import ProfileIcon from "../../assets/icons/navigation/user.svg";
+import ProfileIconFilled from "../../assets/icons/navigation/user_filled.svg";
+import ProfileIconOutline from "../../assets/icons/navigation/user_outline.svg";
 import { View, StyleSheet } from "react-native";
 import { theme } from "../theme";
-import HomeNavigator from "./HomeNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,12 +22,16 @@ export default function BottomTabNavigator() {
         tabBarIcon: ({ color, focused, size }) => {
           let iconComponent;
 
-          if (route.name === "HomeNavigator") {
-            iconComponent = <HomeIcon stroke={"#000"} />;
+          if (route.name === "Home") {
+            iconComponent = focused ? (
+              <HomeIconFilled />
+            ) : (
+              <HomeIconOutline />
+            );
           } else if (route.name === "History") {
-            iconComponent = <HistoryIcon stroke={"#000"} />;
+            iconComponent = focused ? (<HistoryIconFilled />) : (<HistoryIconOutline />)
           } else if (route.name === "Profile") {
-            iconComponent = <ProfileIcon stroke={"#000"} />;
+            iconComponent = focused ? (<ProfileIconFilled />) : (<ProfileIconOutline />)
           }
 
           return (
@@ -41,8 +48,8 @@ export default function BottomTabNavigator() {
       })}
     >
       <Tab.Screen
-        name="HomeNavigator"
-        component={HomeNavigator}
+        name="Home"
+        component={Home}
         options={{
           headerShown: false,
         }}
