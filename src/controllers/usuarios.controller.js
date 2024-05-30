@@ -1,4 +1,4 @@
-import { pb } from '../data/Pocketbase'
+import { pb } from '../lib/pocketbase'
 import Toast from 'react-native-toast-message';
 
 // globally disable auto cancellation
