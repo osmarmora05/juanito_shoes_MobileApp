@@ -15,11 +15,10 @@ import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton
 import { isEmail, showCustomToast } from "../../utils";
 import { theme } from "../../theme";
 import { useState } from "react";
-import QuantityOfProducts from "../../components/QuantityOfProducts";
 import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 
 // Data
-import { loginUsuario } from "../../data/Usuarios";
+import { loginUsuario } from "../../controllers/index.controller";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
