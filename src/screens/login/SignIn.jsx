@@ -19,7 +19,7 @@ import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 
 // Data
 import { loginUsuario } from "../../controllers/index.controller";
-
+// 3klexbe4xod7vvs
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
@@ -85,7 +85,7 @@ export default function SignIn({ navigation }) {
                   }
                 }
 
-                // Validar si es un correo 
+                // Validar si es un correo
                 if (isEmail(values.email) == false) {
                   showCustomToast(
                     "info",
@@ -111,14 +111,13 @@ export default function SignIn({ navigation }) {
                     navigation.navigate("HomeTab");
                   }, 2000);
                 } else {
-                  Toast.show({
-                    type: "error",
-                    text1: "Error de inicio de sesión",
-                    text2:
-                      "El correo y contraseña no son correctos, intente nuevamente.",
-                    position: "top",
-                    visibilityTime: 3000,
-                  });
+                  showCustomToast(
+                    "error",
+                    "Error de inicio de sesión",
+                    "El correo y contraseña no son correctos, intente nuevamente.",
+                    "top",
+                    3000
+                  );
                 }
               }}
             >
@@ -165,7 +164,7 @@ export default function SignIn({ navigation }) {
                       />
                       <StyledGoogleButton
                         handleOnPress={async () => {
-                          console.log("holi")
+                          console.log("holi");
                           // const authData = await pb.collection('Usuarios').authWithOAuth2({ provider: 'google' });
                           // console.log(authData);
                         }}
