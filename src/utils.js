@@ -31,3 +31,11 @@ export function isEmail(text) {
     return true;
   }
 }
+
+export function contieneEspacios(text){
+    // Expresión regular para buscar espacios en blanco
+    const regex = /\s/;
+    // Devuelve true si la variable contiene al menos un espacio en blanco
+    console.log(regex.test(text))
+    return regex.test(text);
+}
