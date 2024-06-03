@@ -1,5 +1,3 @@
-import { Formik } from "formik";
-import Toast from "react-native-toast-message";
 import {
   View,
   TouchableOpacity,
@@ -10,23 +8,54 @@ import {
   Modal,
   ActivityIndicator,
 } from "react-native";
+import { useEffect, useState } from "react";
+
+// Librerias
+import Toast from "react-native-toast-message";
+import { Formik } from "formik";
+
+// Funciones
+import {
+  agregarUsuarioLocal,
+  cargarUsuarioLocal,
+  eliminarUsuarioLocal,
+  isEmail,
+  showCustomToast,
+} from "../../utils";
+
+import { theme } from "../../theme";
+
+// Componentes
+import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 import LoginScreenHeader from "../../components/LoginScreenHeader";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
-import { isEmail, showCustomToast } from "../../utils";
-import { theme } from "../../theme";
-import { useState } from "react";
-import StyledGoogleButton from "../../components/ui/buttons/StyledGoogleButton";
 
-// Data
+// Controladores
 import { loginUsuario } from "../../controllers/index.controller";
+
 // 3klexbe4xod7vvs
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
   const [credentials, setCredentials] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      setIsLoading(true);
+      const usuario = await cargarUsuarioLocal();
+      if (usuario) {
+        // eliminarUsuarioLocal() Probando la funcion xD
+        setIsLoading(false);
+        navigation.navigate("HomeTab");
+      }
+      setIsLoading(false);
+    };
+
+    checkUser();
+  }, []);
 
   return (
     <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
@@ -118,6 +147,11 @@ export default function SignIn({ navigation }) {
                     "Inicio de sesión exitoso",
                     "Bienvenido a Juanito store!"
                   );
+
+                  agregarUsuarioLocal(existeUsuario);
+                  // const usuario = await cargarUsuarioLocal()
+                  // eliminarUsuarioLocal()
+
                   setTimeout(() => {
                     navigation.navigate("HomeTab");
                   }, 2000);

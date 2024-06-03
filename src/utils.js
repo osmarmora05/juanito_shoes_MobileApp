@@ -1,5 +1,8 @@
-import Toast from "react-native-toast-message";
 import { theme } from "./theme";
+
+// Librerias
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 export function showCustomToast(
   type,
@@ -32,10 +35,38 @@ export function isEmail(text) {
   }
 }
 
-export function contieneEspacios(text){
-    // Expresión regular para buscar espacios en blanco
-    const regex = /\s/;
-    // Devuelve true si la variable contiene al menos un espacio en blanco
-    console.log(regex.test(text))
-    return regex.test(text);
+export function contieneEspacios(text) {
+  // Expresión regular para buscar espacios en blanco
+  const regex = /\s/;
+  // Devuelve true si la variable contiene al menos un espacio en blanco
+  console.log(regex.test(text))
+  return regex.test(text);
+}
+
+export async function agregarUsuarioLocal(usuario) {
+  try {
+    await AsyncStorage.setItem("usuario", JSON.stringify(usuario))
+  } catch (error) {
+    console.log("Error agregar al usuario en AsyncStorage: ", error)
+  }
+}
+
+export async function cargarUsuarioLocal() {
+  try {
+    const usuario = await AsyncStorage.getItem('usuario')
+    return usuario != null ? JSON.parse(usuario) : null;
+  }
+  catch (error) {
+    console.log("Error cargar al usuario en AsyncStorage: ", error)
+    return
+  }
+}
+
+export async function eliminarUsuarioLocal() {
+  try {
+    await AsyncStorage.removeItem("usuario");
+  } catch (error) {
+    console.log("Error eliminar al usuario en AsyncStorage: ", error)
+    return
+  }
 }

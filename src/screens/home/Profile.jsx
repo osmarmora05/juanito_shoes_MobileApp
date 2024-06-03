@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,25 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Image,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
+
+import { eliminarUsuarioLocal, showCustomToast } from "../../utils";
+import { theme } from "../../theme";
+
+// Librerias
 import { Formik } from "formik";
 
+// Componentes
 import StyledTextInput from "../../components/ui/StyledTextInput"; // assuming this is the correct import
 import StyledText from "../../components/ui/StyledText";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
+import StyledLogoutButton from "../../components/ui/buttons/StyledLogoutButton";
 
-export default function Profile() {
+export default function Profile({ navigation }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -106,10 +117,41 @@ export default function Profile() {
                   handleOnPress={handleSubmit}
                 />
               </View>
+              <View>
+                <StyledLogoutButton
+                  text={"Cerrar sesion"}
+                  handleOnPress={async () => {
+                    setIsLoading(true);
+                    await eliminarUsuarioLocal();
+                    showCustomToast(
+                      "success",
+                      "Cerrar sesión completado!",
+                      "Gracias por ingresar a Juanito store!"
+                    );
+
+                    setTimeout(() => {
+                      setIsLoading(false);
+                      navigation.navigate("SignIn");
+                    }, 1000);
+                  }}
+                />
+              </View>
             </View>
           )}
         </Formik>
       </ScrollView>
+      <Modal
+        transparent={true}
+        animationType="none"
+        visible={isLoading}
+        onRequestClose={() => {}}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.activityIndicatorWrapper}>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -150,6 +192,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginVertical: 10,
+  },
+  modalBackground: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: "#FFFFFF",
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
