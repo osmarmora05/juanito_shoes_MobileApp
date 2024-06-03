@@ -7,6 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
 import LoginScreenHeader from "../../components/LoginScreenHeader";
 import StyledText from "../../components/ui/StyledText";
@@ -24,6 +26,7 @@ const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
   const [credentials, setCredentials] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
@@ -40,7 +43,7 @@ export default function SignIn({ navigation }) {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
-                console.log(values);
+                setIsLoading(true);
 
                 if (values.email.length == 0 && values.password.length == 0) {
                   showCustomToast(
@@ -48,6 +51,7 @@ export default function SignIn({ navigation }) {
                     "Ups!",
                     "Por fi, asegúrate de llenar los campos"
                   );
+                  setIsLoading(false);
                   return;
                 }
 
@@ -62,6 +66,7 @@ export default function SignIn({ navigation }) {
                         "Ups!",
                         "Ups! Olvidastes llenar el campo Correo"
                       );
+                      setIsLoading(false);
 
                       return;
                     } else if (property == "password") {
@@ -70,6 +75,7 @@ export default function SignIn({ navigation }) {
                         "Ups!",
                         "Ups! Olvidastes llenar el campo Contraseña"
                       );
+                      setIsLoading(false);
                       return;
                     } else {
                       const unfilledField =
@@ -80,6 +86,8 @@ export default function SignIn({ navigation }) {
                         "Ups! Se te paso por alto llenar el campo " +
                           unfilledField
                       );
+                      setIsLoading(false);
+
                       return;
                     }
                   }
@@ -92,6 +100,8 @@ export default function SignIn({ navigation }) {
                     "hey!",
                     "Introduzca un correo electrónico válido"
                   );
+                  setIsLoading(false);
+
                   return;
                 }
 
@@ -102,6 +112,7 @@ export default function SignIn({ navigation }) {
                 );
 
                 if (existeUsuario) {
+                  setIsLoading(false);
                   showCustomToast(
                     "success",
                     "Inicio de sesión exitoso",
@@ -111,10 +122,11 @@ export default function SignIn({ navigation }) {
                     navigation.navigate("HomeTab");
                   }, 2000);
                 } else {
+                  setIsLoading(false);
                   showCustomToast(
                     "error",
                     "Error de inicio de sesión",
-                    "El correo y contraseña no son correctos, intente nuevamente.",
+                    "El correo y contraseña no son correctos.",
                     "top",
                     3000
                   );
@@ -185,6 +197,18 @@ export default function SignIn({ navigation }) {
           </View>
         </View>
       </ScrollView>
+      <Modal
+        transparent={true}
+        animationType="none"
+        visible={isLoading}
+        onRequestClose={() => {}}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.activityIndicatorWrapper}>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
+          </View>
+        </View>
+      </Modal>
       <Toast />
     </KeyboardAvoidingView>
   );
@@ -235,5 +259,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     gap: 18,
+  },
+  modalBackground: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: "#FFFFFF",
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
