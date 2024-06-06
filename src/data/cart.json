@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "Nombre": "Air Jordan 3 Retro Og Cream",
+        "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665628/Juanito_shoes/Air_Jordan_3_Retro_Og_Cream_ymv2qa.png",
+        "Precio": 1000
+    },
+    {
+        "id": 2,
+        "Nombre": "Air Jordan Off-White Nike Sneakers Shoe",
+        "Imagen": "https://res.cloudinary.com/dz7co6cjm/image/upload/v1711665628/Juanito_shoes/Air_Jordan_Off-White_Nike_Sneakers_Shoe_Blue_ldkm1g.png",
+        "Precio": 2000
+    }
+]
