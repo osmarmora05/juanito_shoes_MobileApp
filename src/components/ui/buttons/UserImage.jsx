@@ -13,10 +13,13 @@ function UserImage({ onImageSelected }) {
         quality: 1,
       });
 
-      // Validar si el usuario ingreso la imagen
-      if (!result.cancelled) {
+      // Validar si el usuario ingresó la imagen
+      if (!result.canceled) {
         setImagen(result);
         onImageSelected(result);
+      } else {
+        setImagen(null);
+        onImageSelected(null);
       }
     } catch (error) {
       console.log(error);
@@ -32,7 +35,7 @@ function UserImage({ onImageSelected }) {
             source={require("../../../../assets/img/Usuario.png")}
           />
         )}
-        {imagen && <Image source={{ uri: imagen.assets[0].uri }} style={styles.userImage} />}
+        {imagen && <Image source={{ uri: imagen.assets[0].uri  }} style={styles.userImage} />}
       </Pressable>
     </View>
   );

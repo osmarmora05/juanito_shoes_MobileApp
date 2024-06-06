@@ -10,7 +10,6 @@ export default function QuantityOfProducts({ value = defaultValue }) {
     <View
       style={{
         flexDirection: "row",
-        backgroundColor: "yellow",
         width: 70,
         justifyContent: "space-between",
         alignItems: "center",

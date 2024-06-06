@@ -24,7 +24,7 @@ import UserImage from "../../components/ui/buttons/UserImage";
 
 // Constantes
 import { theme } from "../../theme";
-import { contieneEspacios, isEmail, showCustomToast } from "../../utils";
+import { agregarUsuarioLocal, contieneEspacios, isEmail, showCustomToast } from "../../utils";
 import { crearUsuario } from "../../controllers/usuarios.controller";
 import { pb } from "../../lib/pocketbase";
 import axios from "axios";
@@ -110,9 +110,13 @@ export default function RegisterAccount({ navigation }) {
     const registro = await crearUsuario(values, userImage);
 
     if (registro) {
+      // Agrega al usuario en el registro de sesión y mantenerlo logeado al usuario creado
+      agregarUsuarioLocal(registro);
       setTimeout(() => {
         navigation.navigate("HomeTab");
       }, 2000);
+    } else{
+      showCustomToast("error", "Error de registro de sesión!", "Intente con otro correo o username");
     }
 
     setIsLoading(false);

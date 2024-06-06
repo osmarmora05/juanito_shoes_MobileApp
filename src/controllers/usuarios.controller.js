@@ -1,5 +1,4 @@
 import { pb } from '../lib/pocketbase'
-import Toast from 'react-native-toast-message';
 import { showCustomToast } from '../utils';
 import axios from 'axios';
 
@@ -22,7 +21,6 @@ async function crearUsuario(data, image) {
     // Comprueba si hay un usuario con el mismo correo o nombre de usuario
     const usuario = await existeUsuario(data.email, data.username);
     if (usuario) {
-      showCustomToast("error", "Error de registro de sesión!", "Intente con otro correo o username");
       return false;
     } else {
       // Crear un form data para ingresar los datos de la tabla usuario
@@ -33,7 +31,7 @@ async function crearUsuario(data, image) {
       formData.append('nombre', data.name)
       formData.append('cedula', data.cedula)
       formData.append('telefono', data.telefono)
-      formData.append('rol', "Cliente")
+      formData.append('rol', "4o7lb2h8vtv940f") // Id del cliente
       formData.append('email', data.email)
       formData.append('password', data.password)
       formData.append('passwordConfirm', data.passwordConfirm)
@@ -62,7 +60,7 @@ async function crearUsuario(data, image) {
 
 
   } catch (error) {
-    console.log(error);
+    console.log("crearUsuario: ",error);
     return false;
   }
 }
@@ -80,7 +78,7 @@ async function existeUsuario(email, username) {
     // Booleano que valida si el usuario existe o no
     return user.length != 0 ? true : false;
   } catch (error) {
-    console.log(error);
+    console.log("existeUsuario: ",error);
   }
 }
 
