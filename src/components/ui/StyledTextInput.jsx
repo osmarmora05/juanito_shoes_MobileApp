@@ -12,6 +12,7 @@ export default function StyledTextInput({
   name,
   value,
   handleOnchange,
+  editable = true
 }) {
   if (
     (emailAddress && phone) ||
@@ -54,6 +55,7 @@ export default function StyledTextInput({
   return (
     <View style={styles.container}>
       <TextInput
+        editable={editable}
         style={styles.textInput}
         secureTextEntry={password ? !showPassword : undefined}
         keyboardType={

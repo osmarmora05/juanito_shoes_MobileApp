@@ -31,10 +31,11 @@ async function crearUsuario(data, image) {
       formData.append('nombre', data.name)
       formData.append('cedula', data.cedula)
       formData.append('telefono', data.telefono)
-      formData.append('rol', "4o7lb2h8vtv940f") // Id del cliente
+      formData.append('rol_id', "4o7lb2h8vtv940f") // Id del cliente
       formData.append('email', data.email)
       formData.append('password', data.password)
       formData.append('passwordConfirm', data.passwordConfirm)
+      formData.append('emailVisibility', true) 
 
       // Agregar la foto del usuario
       formData.append("foto", {
@@ -49,18 +50,18 @@ async function crearUsuario(data, image) {
             "Content-Type": "multipart/form-data",
           },
         });
+        return response.data;
 
       } catch (error) {
         console.error("Error al de registro:", error);
       }
 
-      showCustomToast("success", "Usuario creado exitosamente!", "Bienvenido " + data.username, 4000);
-      return true;
+
     }
 
 
   } catch (error) {
-    console.log("crearUsuario: ",error);
+    console.log("crearUsuario: ", error);
     return false;
   }
 }
@@ -78,11 +79,54 @@ async function existeUsuario(email, username) {
     // Booleano que valida si el usuario existe o no
     return user.length != 0 ? true : false;
   } catch (error) {
-    console.log("existeUsuario: ",error);
+    console.log("existeUsuario: ", error);
+  }
+}
+
+// Función para actualizar el registro en PocketBase
+async function actualizarUsuario(data, image, recordId) {
+
+  const info = {
+    username: data.username,
+    emailVisibility: true,
+    password: data.password,
+    passwordConfirm: data.passwordConfirm,
+    oldPassword: data.oldPassword,
+    nombre: data.name,
+    cedula: data.cedula,
+    telefono: data.telefono,
+    rol_id: "4o7lb2h8vtv940f"
+    };
+  console.log(info)
+
+  // const formData = new FormData();
+  // formData.append('username', data.username);
+  // formData.append('nombre', data.name);
+  // formData.append('cedula', data.cedula);
+  // formData.append('telefono', data.telefono);
+  // formData.append('rol', "4o7lb2h8vtv940f"); // Id del cliente
+  // formData.append('email', data.email);
+  // formData.append('password', data.password);
+  // formData.append('passwordConfirm', data.passwordConfirm);
+  // formData.append('oldPassword', data.passwordConfirm);
+  // Agregar la foto del usuario
+
+  // formData.append("foto", {
+  //   uri: image.uri,
+  // });
+  // console.log(formData)
+
+  try {
+    const record = await pb.collection('Usuarios').update(recordId, info);
+    return record;
+
+  } catch (error) {
+    console.error("Error al actualizar el registro:", error);
   }
 }
 
 export {
   loginUsuario,
-  crearUsuario
+  crearUsuario,
+  actualizarUsuario,
 };

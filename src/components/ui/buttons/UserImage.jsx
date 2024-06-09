@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image, Pressable } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-function UserImage({ onImageSelected }) {
+function UserImage({ onImageSelected, photo = "" }) {
   const [imagen, setImagen] = useState(null);
 
   const agregarImagen = async () => {
@@ -29,13 +29,20 @@ function UserImage({ onImageSelected }) {
   return (
     <View style={styles.container}>
       <Pressable style={styles.container_img} onPress={agregarImagen}>
-        {!imagen && (
+        {!photo ? (
           <Image
-            style={styles.icon}
             source={require("../../../../assets/img/Usuario.png")}
+            style={styles.userImage}
+          />
+        ) : (
+          <Image src={photo} style={styles.userImage} />
+        )}
+        {imagen && (
+          <Image
+            source={{ uri: imagen.assets[0].uri }}
+            style={styles.userImage}
           />
         )}
-        {imagen && <Image source={{ uri: imagen.assets[0].uri  }} style={styles.userImage} />}
       </Pressable>
     </View>
   );

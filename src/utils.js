@@ -70,3 +70,83 @@ export async function eliminarUsuarioLocal() {
     return
   }
 }
+
+export function validarCampos(values, userImage){
+  // Se utiliza para validar a los usuario en registrar usuario y Editar perfil de usuario
+  if (
+    values.name === "" ||
+    values.email === "" ||
+    values.password === "" ||
+    values.passwordConfirm === "" ||
+    values.cedula === "" ||
+    values.username === "" ||
+    values.telefono === ""
+  ) {
+    showCustomToast("error", "Ups!", "Asegúrate de llenar los campos");
+    return false;
+  }
+
+  for (const property in values) {
+    if (values[property] == null || values[property].length == 0) {
+      const unfilledField =
+        property.charAt(0).toUpperCase() + property.slice(1);
+      showCustomToast(
+        "error",
+        "Ups!",
+        "Te falta llenar el campo " + unfilledField
+      );
+      
+      return false;
+    }
+  }
+
+  if (isEmail(values.email) == false) {
+    showCustomToast(
+      "info",
+      "hey!",
+      "Introduzca un correo electrónico válido"
+    );
+    
+    return false;
+  }
+
+  if (contieneEspacios(values.username)) {
+    showCustomToast(
+      "info",
+      "hey!",
+      "Introduzca un username válido"
+    );
+    
+    return false;
+  }
+
+  if (values.password.length < 8) {
+    showCustomToast(
+      "error",
+      "Contraseña inválida",
+      "Debe tener más de 8 caracteres"
+    );
+    
+    return false;
+    ;
+  }
+
+  if (values.password !== values.passwordConfirm) {
+    showCustomToast(
+      "error",
+      "Las contraseñas no coinciden",
+      "Intentelo nuevamente"
+    );
+    
+    return false;
+    ;
+  }
+
+  if (!userImage) {
+    showCustomToast("error", "Ups!", "Por favor selecciona una imagen");
+    
+    return false;
+  }
+
+  return true;
+}

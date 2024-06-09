@@ -3,7 +3,6 @@ import {
   View,
   KeyboardAvoidingView,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
@@ -13,7 +12,6 @@ import {
 // Librerías
 import { Formik } from "formik";
 import Toast from "react-native-toast-message";
-import * as ImagePicker from "expo-image-picker";
 
 // Componentes
 import LoginScreenHeader from "../../components/LoginScreenHeader";
@@ -24,12 +22,12 @@ import UserImage from "../../components/ui/buttons/UserImage";
 
 // Constantes
 import { theme } from "../../theme";
-import { agregarUsuarioLocal, contieneEspacios, isEmail, showCustomToast } from "../../utils";
-import { crearUsuario } from "../../controllers/usuarios.controller";
-import { pb } from "../../lib/pocketbase";
-import axios from "axios";
-
-const HEIGHT_WINDOW = Dimensions.get("window").height;
+import {
+  agregarUsuarioLocal,
+  showCustomToast,
+  validarCampos
+} from "../../utils";
+import { crearUsuario } from "../../controllers/index.controller";
 
 export default function RegisterAccount({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,82 +39,30 @@ export default function RegisterAccount({ navigation }) {
 
   const handleFormSubmit = async (values) => {
     setIsLoading(true);
-    if (
-      values.name === "" ||
-      values.email === "" ||
-      values.password === "" ||
-      values.passwordConfirm === "" ||
-      values.cedula === "" ||
-      values.username === "" ||
-      values.telefono === ""
-    ) {
-      showCustomToast("error", "Ups!", "Asegúrate de llenar los campos");
-      setIsLoading(false);
-      return;
-    }
 
-    for (const property in values) {
-      if (values[property] == null || values[property].length == 0) {
-        const unfilledField =
-          property.charAt(0).toUpperCase() + property.slice(1);
+    if (validarCampos(values, userImage)) {
+      // Crea al usuario y mira si esta todo bien
+      const registro = await crearUsuario(values, userImage);
+
+      if (registro) {
+        setIsLoading(false);
+        showCustomToast(
+          "success",
+          "Registro de sesión exitoso",
+          "Bienvenido a Juanito store!"
+          );
+        // Agrega al usuario en el registro de sesión y mantenerlo logeado al usuario creado
+        await agregarUsuarioLocal(registro);
+        setTimeout(() => {
+          navigation.navigate("HomeTab");
+        }, 2000);
+      } else {
         showCustomToast(
           "error",
-          "Ups!",
-          "Te falta llenar el campo " + unfilledField
+          "Error de registro de sesión!",
+          "Intente con otro correo o username"
         );
-        setIsLoading(false);
-        return;
       }
-    }
-
-    if (isEmail(values.email) == false) {
-      showCustomToast(
-        "info",
-        "hey!",
-        "Introduzca un correo electrónico válido"
-      );
-      setIsLoading(false);
-      return;
-    }
-
-    if (contieneEspacios(values.username)) {
-      showCustomToast(
-        "info",
-        "hey!",
-        "Introduzca un username válido"
-      );
-      setIsLoading(false);
-      return;
-    }
-
-    if (values.password !== values.passwordConfirm) {
-      showCustomToast(
-        "error",
-        "Las contraseñas no coinciden",
-        "Intentelo nuevamente"
-      );
-      setIsLoading(false);
-      return;
-    }
-
-    // Validacion de la imagen
-    if (!userImage) {
-      showCustomToast("error", "Ups!", "Por favor selecciona una imagen");
-      setIsLoading(false);
-      return;
-    }
-
-    // Crea al usuario y mira si esta todo bien
-    const registro = await crearUsuario(values, userImage);
-
-    if (registro) {
-      // Agrega al usuario en el registro de sesión y mantenerlo logeado al usuario creado
-      agregarUsuarioLocal(registro);
-      setTimeout(() => {
-        navigation.navigate("HomeTab");
-      }, 2000);
-    } else{
-      showCustomToast("error", "Error de registro de sesión!", "Intente con otro correo o username");
     }
 
     setIsLoading(false);

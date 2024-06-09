@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProductDetails from "../screens/home/ProductDetails";
 import ShoppingCart from "../screens/home/ShoppingCart";
 import BottomTabNavigator from "./BottomTabNavigator";
+import EditProfile from "../screens/home/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,14 @@ export default function HomeNavigator() {
         options={{
           headerTitle: "Detalles del zapato",
         }}
-      />
+      />      
+      <Stack.Screen
+      name="EditProfile"
+      component={EditProfile}
+      options={{
+        headerTitle: "Editar perfil",
+      }}
+    />
     </Stack.Navigator>
   );
 }

@@ -18,7 +18,6 @@ import { Formik } from "formik";
 import {
   agregarUsuarioLocal,
   cargarUsuarioLocal,
-  eliminarUsuarioLocal,
   isEmail,
   showCustomToast,
 } from "../../utils";
@@ -148,13 +147,13 @@ export default function SignIn({ navigation }) {
                     "Bienvenido a Juanito store!"
                   );
 
-                  agregarUsuarioLocal(existeUsuario);
+                  agregarUsuarioLocal(existeUsuario.record);
                   // const usuario = await cargarUsuarioLocal()
                   // eliminarUsuarioLocal()
 
                   setTimeout(() => {
                     navigation.navigate("HomeTab");
-                  }, 2000);
+                  }, 1000);
                 } else {
                   setIsLoading(false);
                   showCustomToast(
