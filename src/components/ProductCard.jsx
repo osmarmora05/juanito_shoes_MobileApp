@@ -1,30 +1,33 @@
-import { View, StyleSheet, TouchableOpacity,Image } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Plus from "../../assets/icons/plus.svg";
 import StyledText from "./ui/StyledText";
 import { theme } from "../theme";
 
 export default function ProductCard(props) {
   const { item } = props;
+  const firstVariants = item.variantes[0]
+  const numberOfColors = item.variantes.length
+  
+  // console.log("Dentro del componente card")
+  // console.log(item.variantes[0])
+  // console.log(numberOfColors)
 
   return (
     <View style={styles.mainBox}>
       <View style={styles.box}>
-        <Image
-          style={styles.image}
-          source={{ uri: `${item.Imagen}` }}
-        />
+        <Image style={styles.image} source={{ uri: `${firstVariants.imagen}` }} />
         <View style={styles.infoContainer}>
           <StyledText extraSmall textAlign="left" numberOfLines={1}>
-            {item.Nombre}
+            {item.nombre}
+          </StyledText>
+          <StyledText hint normal>
+            {numberOfColors} Color
           </StyledText>
           <StyledText extraSmall bold textAlign="left" numberOfLines={1}>
-            {item.Precio}
+            $ {item.precio}
           </StyledText>
         </View>
       </View>
-      <TouchableOpacity style={styles.addToCartButton}>
-        <Plus width={14} height={14} />
-      </TouchableOpacity>
     </View>
   );
 }
@@ -43,10 +46,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,
+    padding: 16
   },
 
   infoContainer: {
-    width: "70%",
+    width: "100%",
   },
 
   image: {
