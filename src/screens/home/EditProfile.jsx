@@ -17,22 +17,19 @@ import Toast from "react-native-toast-message";
 import StyledText from "../../components/ui/StyledText";
 import StyledTextInput from "../../components/ui/StyledTextInput";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
-import UserImage from "../../components/ui/buttons/UserImage";
 
 // Constantes
 import { theme } from "../../theme";
-import {
-  agregarUsuarioLocal,
-  cargarUsuarioLocal,
-  showCustomToast,
-  validarCampos,
-} from "../../utils";
+import { showCustomToast, validarCampos } from "../../utils";
 import {
   actualizarUsuario,
-  existeUsuario,
   getImagen,
   loginUsuario,
 } from "../../controllers/index.controller";
+import {
+  agregarUsuarioLocal,
+  cargarUsuarioLocal,
+} from "../../localStorage/index.local";
 
 export default function EditProfile({ navigation }) {
   const [userImage, setUserImage] = useState(null);
@@ -43,8 +40,16 @@ export default function EditProfile({ navigation }) {
   useEffect(() => {
     const obtenerUsuario = async () => {
       try {
-        setUsuario(await cargarUsuarioLocal());
-        setUserImage(getImagen(await cargarUsuarioLocal()));
+        const usuarioLocal = await cargarUsuarioLocal();
+
+        setUsuario(usuarioLocal);
+        setUserImage(
+          getImagen(
+            usuarioLocal.collectionId,
+            usuarioLocal.id,
+            usuarioLocal.foto
+          )
+        );
         setCargandoDatos(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -124,7 +129,7 @@ export default function EditProfile({ navigation }) {
                 {({ handleChange, values, handleSubmit }) => (
                   <View style={styles.box}>
                     <View style={styles.fieldContainer}>
-                      <View style={{ paddingTop: 10, alignItems:"center" }}>
+                      <View style={{ paddingTop: 10, alignItems: "center" }}>
                         {/* <UserImage
                           onImageSelected={handleImageSelected}
                           photo={userImage}
@@ -252,7 +257,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "start",
-    alignItems:"center"
+    alignItems: "center",
   },
   box: {
     justifyContent: "start",

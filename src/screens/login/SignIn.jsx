@@ -15,12 +15,12 @@ import Toast from "react-native-toast-message";
 import { Formik } from "formik";
 
 // Funciones
+import { isEmail, showCustomToast } from "../../utils";
+
 import {
   agregarUsuarioLocal,
   cargarUsuarioLocal,
-  isEmail,
-  showCustomToast,
-} from "../../utils";
+} from "../../localStorage/index.local";
 
 import { theme } from "../../theme";
 
@@ -34,11 +34,9 @@ import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton
 // Controladores
 import { loginUsuario } from "../../controllers/index.controller";
 
-// 3klexbe4xod7vvs
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
-  const [credentials, setCredentials] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

@@ -97,7 +97,6 @@ async function actualizarUsuario(data, image, recordId) {
     telefono: data.telefono,
     rol_id: "4o7lb2h8vtv940f"
     };
-  console.log(info)
 
   // const formData = new FormData();
   // formData.append('username', data.username);

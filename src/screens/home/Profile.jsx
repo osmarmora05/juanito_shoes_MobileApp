@@ -18,10 +18,14 @@ import StyledLogoutButton from "../../components/ui/buttons/StyledLogoutButton";
 // Constantes
 import { theme } from "../../theme";
 import {
-  cargarUsuarioLocal,
-  eliminarUsuarioLocal,
   showCustomToast,
 } from "../../utils";
+
+import {
+  cargarUsuarioLocal,
+  eliminarUsuarioLocal,
+} from "../../localStorage/index.local";
+
 import { getImagen } from "../../controllers/index.controller";
 import Toast from "react-native-toast-message";
 
@@ -35,15 +39,17 @@ export default function Profile({ navigation }) {
     const obtenerUsuario = async () => {
       try {
         const usuarioLocal = await cargarUsuarioLocal();
-        setUsuario(usuarioLocal);
-        setUserImage(getImagen(usuarioLocal));
-        setCargarDatos(false);
+        if (usuarioLocal) {
+          setUsuario(usuarioLocal);
+          setUserImage(getImagen(usuarioLocal.collectionId, usuarioLocal.id, usuarioLocal.foto));
+          setCargarDatos(false);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     obtenerUsuario();
-  }, []);
+  }, [usuario]);
 
   if (!cargarDatos) {
     return (
@@ -96,13 +102,12 @@ export default function Profile({ navigation }) {
                 handleOnPress={async () => {
                   setIsLoading(true);
                   await eliminarUsuarioLocal();
-                  setIsLoading(false);
-                  console.log("Hola")
                   showCustomToast(
                     "success",
                     "Cerrar sesión completado!",
                     "Gracias por ingresar a Juanito store!"
                   );
+                  setIsLoading(false);
                   setTimeout(() => {
                     navigation.navigate("SignIn");
                   }, 1000);

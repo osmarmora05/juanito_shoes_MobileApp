@@ -22,12 +22,9 @@ import UserImage from "../../components/ui/buttons/UserImage";
 
 // Constantes
 import { theme } from "../../theme";
-import {
-  agregarUsuarioLocal,
-  showCustomToast,
-  validarCampos
-} from "../../utils";
+import { showCustomToast, validarCampos } from "../../utils";
 import { crearUsuario } from "../../controllers/index.controller";
+import { agregarUsuarioLocal } from "../../localStorage/index.local";
 
 export default function RegisterAccount({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +47,7 @@ export default function RegisterAccount({ navigation }) {
           "success",
           "Registro de sesión exitoso",
           "Bienvenido a Juanito store!"
-          );
+        );
         // Agrega al usuario en el registro de sesión y mantenerlo logeado al usuario creado
         await agregarUsuarioLocal(registro);
         setTimeout(() => {

@@ -1,4 +1,4 @@
 import { getImagen } from './imagen.controller'
-import { loginUsuario, actualizarUsuario, crearUsuario, existeUsuario } from './usuarios.controller'
+import { loginUsuario, actualizarUsuario, crearUsuario } from './usuarios.controller'
 
-export { getImagen, loginUsuario, actualizarUsuario, crearUsuario, existeUsuario }
+export { getImagen, loginUsuario, actualizarUsuario, crearUsuario }
