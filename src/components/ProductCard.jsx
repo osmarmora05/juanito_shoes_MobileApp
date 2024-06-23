@@ -1,30 +1,27 @@
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Plus from "../../assets/icons/plus.svg";
+import { View, StyleSheet, Image } from "react-native";
 import StyledText from "./ui/StyledText";
 import { theme } from "../theme";
 
+/* 
+  El componente `ProductCard` recibe un Objeto de tipo Card
+*/
+
 export default function ProductCard(props) {
   const { item } = props;
-  const firstVariants = item.variantes[0]
-  const numberOfColors = item.variantes.length
-  
-  // console.log("Dentro del componente card")
-  // console.log(item.variantes[0])
-  // console.log(numberOfColors)
-
   return (
     <View style={styles.mainBox}>
       <View style={styles.box}>
-        <Image style={styles.image} source={{ uri: `${firstVariants.imagen}` }} />
+        <Image style={styles.image} source={{ uri: `${item.imageCover}` }} />
         <View style={styles.infoContainer}>
           <StyledText extraSmall textAlign="left" numberOfLines={1}>
-            {item.nombre}
+            {item.name}
           </StyledText>
           <StyledText hint normal>
-            {numberOfColors} Color
+            {item.numberOfColors}{" "}
+            {item.numberOfColors === 1 ? "Color" : "Colores"}
           </StyledText>
           <StyledText extraSmall bold textAlign="left" numberOfLines={1}>
-            $ {item.precio}
+            $ {item.price}
           </StyledText>
         </View>
       </View>
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,
-    padding: 16
+    padding: 16,
   },
 
   infoContainer: {
