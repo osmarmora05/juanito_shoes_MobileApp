@@ -1,30 +1,30 @@
-import { View, StyleSheet, TouchableOpacity,Image } from "react-native";
-import Plus from "../../assets/icons/plus.svg";
+import { View, StyleSheet, Image } from "react-native";
 import StyledText from "./ui/StyledText";
 import { theme } from "../theme";
 
+/* 
+  El componente `ProductCard` recibe un Objeto de tipo Card
+*/
+
 export default function ProductCard(props) {
   const { item } = props;
-
   return (
     <View style={styles.mainBox}>
       <View style={styles.box}>
-        <Image
-          style={styles.image}
-          source={{ uri: `${item.Imagen}` }}
-        />
+        <Image style={styles.image} source={{ uri: `${item.imageCover}` }} />
         <View style={styles.infoContainer}>
           <StyledText extraSmall textAlign="left" numberOfLines={1}>
-            {item.Nombre}
+            {item.name}
+          </StyledText>
+          <StyledText hint normal>
+            {item.numberOfColors}{" "}
+            {item.numberOfColors === 1 ? "Color" : "Colores"}
           </StyledText>
           <StyledText extraSmall bold textAlign="left" numberOfLines={1}>
-            {item.Precio}
+            $ {item.price}
           </StyledText>
         </View>
       </View>
-      <TouchableOpacity style={styles.addToCartButton}>
-        <Plus width={14} height={14} />
-      </TouchableOpacity>
     </View>
   );
 }
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,
+    padding: 16,
   },
 
   infoContainer: {
-    width: "70%",
+    width: "100%",
   },
 
   image: {

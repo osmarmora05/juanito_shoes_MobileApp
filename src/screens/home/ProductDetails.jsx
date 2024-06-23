@@ -4,29 +4,109 @@ import {
   Text,
   Image,
   StyleSheet,
-  Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import StyledText from "../../components/ui/StyledText";
 import { theme } from "../../theme";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import QuantityOfProducts from "../../components/QuantityOfProducts";
+import useCount from "../../hooks/useCount";
+import { useCart } from "../../hooks/useCart";
 
-const HEIGHT_WINDOW = Dimensions.get("window").height;
+// `color`: Diccionario que contiene los colores en español (que devuelve pb) y retornar su valor correspondiente en hex
+const colors = {
+  rojo: "#DC2626",
+  azul: "#2563EB",
+  amarillo: "#FACC15",
+  verde: "#16A34A",
+  blanco: theme.colors.bg.default,
+  gris: "#6B7280",
+  café: "#78716C",
+  naranja: "#F97316",
+  rosado: "#E11D48",
+  morado: "#7C3AED",
+  negro: "#18181B",
+};
 
 export default function ProductDetails() {
   const { params } = useRoute();
   const navigation = useNavigation();
+  // Obtenemos el objeto de tipo Card
   const item = params?.data;
-  const marca = item.Marca;
-  const widthMultiplier = calculateWidthMultiplier(marca);
+  // Estado que almacena el zapato junto con su cantidada, imagen etc,
+  // es decir todad la info necesaria para crear el detalle
+  const [shoes, setShoes] = useState(item.sizesWithYourColorsAndQuantities);
+  // Estado que almacena la talla del zapato, por defecto selccionamos la primera talla
+  const [selectedSize, setSelectedSize] = useState(shoes[0]?.talla || null);
+  // Estado que almecena el indice del color, por defecto es 0
+  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const mark = item.mark;
+  const widthMultiplier = calculateWidthMultiplier(mark);
+  // variable que almacena el zapato seleccionado junto a la talla y su color
+  const selectedShoe = shoes.find((shoe) => shoe.talla === selectedSize);
 
+  // Importamos la funcion `useCount` que brinda los metodos necesarios para crear el contador de forma modular
+
+  const { count, increment, decrement, reset } = useCount(
+    1, // Initial count
+    parseInt(selectedShoe?.existencias[selectedColorIndex] || "0") // Maximum value
+  );
+
+  const { cart, addToCart, clearCart, removeFromCart } = useCart();
+
+  // useEffect para agregar el nombre del zapatos como titutlo en la barra de navegacion
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: item.Nombre,
+      headerTitle: item.name,
     });
   }, []);
+
+  useEffect(() => {
+    console.log("Carrito");
+    console.log(cart);
+  }, [cart]);
+
+  /*
+  `handleSizeSelect`: Permite actualizar la talla seleccionada por el usuario, junto con su color (que escogemos el primer color) y contador con su cantidad de compra (que es 1)
+  */
+  const handleSizeSelect = (size) => {
+    setSelectedSize(size);
+    setSelectedColorIndex(0); // Reset color index to default on size change
+    reset(1);
+  };
+
+  /*
+  `handleColorSelect`: Permite actualizar el color seleccionado por el usario junto con su cantidad de compra
+  */
+
+  const handleColorSelect = (index) => {
+    setSelectedColorIndex(index);
+    reset(parseInt(selectedShoe?.existencias[index] || "0"));
+  };
+  /*
+   `handleAddToCart`: Permite agregar al contexto Cart el zapato comprado por el usuario(se agrega un objeto)
+
+   1. Buscamos aquel zapato que sea igual a la talla seleccionada por el usuario
+   2. Establecemos el color y la imagen, con el estado `selectedColorIndex` ya que este almacena el indice del color seleccionado (es el grupo de colores que esta en la interfaz a la derecha)
+  */
+  const handleAddToCart = () => {
+    const selectedShoe = shoes.find((shoe) => shoe.talla === selectedSize);
+    const selectedImage = selectedShoe.imagenes[selectedColorIndex];
+    const selectedColor = selectedShoe.colores[selectedColorIndex];
+    const selectedQuantity = count;
+    addToCart({
+      id_modelo: selectedShoe.id_modelo,
+      id_inventario: selectedShoe.id_inventario,
+      talla: selectedShoe.talla,
+      imagen: selectedImage,
+      color: selectedColor,
+      cantidad_compra: selectedQuantity,
+      existencias: parseInt(selectedShoe.existencias[selectedColorIndex]),
+    });
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -34,11 +114,26 @@ export default function ProductDetails() {
         <View style={styles.innerContainer}>
           <View style={styles.row}>
             {/* Size */}
+            {/* TODO: Agregar un scrool vertical por si hay muchas tallas*/}
             <View style={styles.sizeContainer}>
               <StyledText extraSmall>Tamaño</StyledText>
-              <View style={styles.sizeView}>
-                <StyledText textAlign="center">{item.Tamaño}</StyledText>
-              </View>
+              {shoes.map((x) => (
+                <TouchableOpacity
+                  key={x.talla}
+                  style={[
+                    styles.sizeView,
+                    {
+                      borderColor:
+                        selectedSize === x.talla
+                          ? theme.colors.text.hint
+                          : "#d1d1d1",
+                    },
+                  ]}
+                  onPress={() => handleSizeSelect(x.talla)}
+                >
+                  <StyledText textAlign="center">{x.talla}</StyledText>
+                </TouchableOpacity>
+              ))}
             </View>
 
             {/* Image */}
@@ -47,29 +142,51 @@ export default function ProductDetails() {
                 style={[
                   styles.brandText,
                   {
-                    fontSize: marca.length <= 4 ? theme.font.big.fontSize : 84,
-                    textAlignVertical: marca.length <= 4 ? "bottom" : "center",
+                    fontSize: mark.length <= 4 ? theme.font.big.fontSize : 84,
+                    textAlignVertical: mark.length <= 4 ? "bottom" : "center",
                     width: `${widthMultiplier * 100}%`,
-                    height: marca.length <= 4 ? "56%" : "auto",
+                    height: mark.length <= 4 ? "56%" : "auto",
                   },
                 ]}
               >
-                {marca}
+                {mark}
               </Text>
               <Image
                 style={styles.productImage}
-                source={{ uri: `${item.Imagen}` }}
+                source={{
+                  uri: selectedShoe
+                    ? selectedShoe.imagenes[selectedColorIndex]
+                    : item.imageCover,
+                }}
               />
             </View>
 
             {/* Color */}
+            {/* TODO: Agregar un scrool vertical, en el caso que haya muchos zapatos */}
             <View style={styles.colorContainer}>
               <StyledText extraSmall>Color</StyledText>
-              <View style={styles.colorView}>
-                <View
-                  style={[styles.colorBlock, { backgroundColor: item.Color }]}
-                ></View>
-              </View>
+              {selectedShoe?.colores.map((color, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.colorView,
+                    {
+                      borderColor:
+                        selectedColorIndex === index
+                          ? theme.colors.text.hint
+                          : "#d1d1d1",
+                    },
+                  ]}
+                  onPress={() => handleColorSelect(index)}
+                >
+                  <View
+                    style={[
+                      styles.colorBlock,
+                      { backgroundColor: colors[`${color}`] },
+                    ]}
+                  ></View>
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
 
@@ -77,30 +194,48 @@ export default function ProductDetails() {
           <View style={styles.descriptionContainer}>
             {/* Title & Stock */}
             <View>
-              {/* Shoe name */}
-              <View style={{ marginBottom: 18 }}>
-                <StyledText medium extraBold textAlign="center">
-                  {item.Nombre}
+              <View style={{ marginBottom: 10 }}>
+                <StyledText medium extraBold textAlign="start">
+                  {item.name}
                 </StyledText>
               </View>
-              {/* Price and category */}
-              <View>
-                <StyledText medium bold>
-                  {item.Precio}
-                </StyledText>
-                <StyledText normal extraBold hint>
-                  {item.Categoría}
-                </StyledText>
-              </View>
-            </View>
-            {/* quantity */}
-            {/* <View></View> */}
-            {/* Description */}
-            <View>
-              <StyledText textAlign="center">{item.Descripción}</StyledText>
-            </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <StyledText medium bold>
+                    $ {item.price}
+                  </StyledText>
+                  <StyledText normal extraBold hint>
+                    {item.category}
+                  </StyledText>
+                </View>
 
-            <StyledPrimaryButton text={"Agregar al carrito"} />
+                <QuantityOfProducts
+                  increase={increment}
+                  decrease={decrement}
+                  value={count}
+                  maximumValue={parseInt(
+                    selectedShoe?.existencias[selectedColorIndex] || "0"
+                  )}
+                />
+              </View>
+            </View>
+            <View>
+              {/* TODO: No centrar texto: El texto este alineado a la derecha
+                  Y que ocupe todo el tamaño del padre(No justificado)
+              */}
+              <StyledText textAlign="center">{item.description}</StyledText>
+            </View>
+            <StyledPrimaryButton
+              text={"Agregar al carrito"}
+              handleOnPress={handleAddToCart}
+            />
           </View>
         </View>
       </View>
@@ -126,7 +261,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: HEIGHT_WINDOW,
+    height: "auto",
   },
   innerContainer: {
     maxWidth: "90%",
@@ -140,6 +275,7 @@ const styles = StyleSheet.create({
     width: "20%",
     paddingTop: 50,
     alignItems: "center",
+    gap: 10,
   },
   sizeView: {
     width: 55,
@@ -175,6 +311,7 @@ const styles = StyleSheet.create({
   colorContainer: {
     width: "20%",
     paddingTop: 50,
+    gap: 10,
     alignItems: "center",
   },
   colorView: {
@@ -194,6 +331,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
   },
   descriptionContainer: {
+    display: "flex",
+    paddingBottom: 20,
     gap: 10,
   },
 });

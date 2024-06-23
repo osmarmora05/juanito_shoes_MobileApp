@@ -3,6 +3,8 @@ import { useFonts } from "expo-font";
 import { theme } from "./src/theme";
 import Constants from "expo-constants";
 import AuthNavigator from "./src/navigations/AuthNavigator";
+import { FiltersProvider } from "./src/context/filter";
+import { CartProvider } from "./src/context/cart";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,7 +19,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <AuthNavigator/>
+      <FiltersProvider>
+        <CartProvider>
+          <AuthNavigator />
+        </CartProvider>
+      </FiltersProvider>
     </View>
   );
 }
@@ -25,8 +31,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.bg.default,
   },
