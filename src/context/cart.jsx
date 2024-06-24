@@ -63,7 +63,7 @@ export function CartProvider({ children }) {
 
   const removeFromCart = (shoe) => {
     setCart((prevState) =>
-      prevState.filter((item) => item.id_modelo != shoe.id_modelo)
+      prevState.filter((item) => item.id_inventario != shoe.id_inventario)
     );
   };
 

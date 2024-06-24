@@ -3,4 +3,10 @@ import { loginUsuario, actualizarUsuario, crearUsuario } from './usuarios.contro
 
 import { getLimitedInventario } from './inventario.controller'
 
-export { getImagen, getLimitedInventario, loginUsuario, actualizarUsuario, crearUsuario }
+export {
+    getImagen,
+    getLimitedInventario,
+    loginUsuario, 
+    actualizarUsuario, 
+    crearUsuario,
+}

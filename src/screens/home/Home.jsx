@@ -12,6 +12,7 @@ import { getLimitedInventario } from "../../controllers/index.controller";
 import { Card } from "../../Card";
 import { useFilters } from "../../hooks/useFilters";
 import StyledText from "../../components/ui/StyledText";
+import Header from "../../components/ui/Header";
 
 
 /*
@@ -145,6 +146,7 @@ export default function Home({ navigation }) {
   // CRITCAL: problemas de core, muchas consultas
   return (
     <View style={styles.container}>
+      <Header navigation={navigation}/>
       <FlatList
         data={filterShoes(shoes)}
         keyExtractor={(item) => `${item.modeloId}`}

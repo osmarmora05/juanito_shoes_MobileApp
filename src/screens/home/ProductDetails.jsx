@@ -105,6 +105,8 @@ export default function ProductDetails() {
       color: selectedColor,
       cantidad_compra: selectedQuantity,
       existencias: parseInt(selectedShoe.existencias[selectedColorIndex]),
+      nombre: item.name,
+      precio: item.price
     });
   };
 

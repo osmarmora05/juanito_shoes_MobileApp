@@ -3,33 +3,46 @@ import Trash from "../../assets/icons/Trash.svg";
 import StyledText from "./ui/StyledText";
 import { theme } from "../theme";
 import QuantityOfProducts from "./QuantityOfProducts";
+import { useCart } from "../hooks/useCart";
+import { showCustomToast } from "../utils";
 
 export default function CartCard(props) {
   const { item } = props;
+  const { removeFromCart } = useCart();
 
   return (
     <View style={styles.mainBox}>
       <View style={styles.box}>
         <View style={styles.containerimage}>
-          <Image style={styles.image} source={{ uri: `${item.Imagen}` }} />
+          <Image style={styles.image} source={{ uri: `${item.imagen}` }} />
         </View>
         <View style={styles.infoContainer}>
           <StyledText extraSmall textAlign="left" numberOfLines={1}>
-            {item.Nombre}
+            {item.nombre}
           </StyledText>
           <StyledText extraSmall bold textAlign="left" numberOfLines={1}>
-            ${item.Precio}
+            ${item.precio}
           </StyledText>
-          <QuantityOfProducts />
+          <QuantityOfProducts
+            maximumValue={item.existencias}
+            value={item.cantidad_compra}
+          />
         </View>
       </View>
       <TouchableOpacity
         style={styles.trashContainer}
         onPress={() => {
-          console.log("Pronto")
+          showCustomToast(
+            "error",
+            "",
+            `Se elimino ${item.nombre}`,
+            "top",
+            2000
+          );
+          removeFromCart(item);
         }}
       >
-        <Trash width={14} height={14} />
+        <Trash width={15} height={15} />
       </TouchableOpacity>
     </View>
   );
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     position: "absolute",
-    top: 0,
+    bottom: 0,
     right: 0,
     justifyContent: "center",
     alignItems: "center",
