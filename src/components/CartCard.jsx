@@ -36,8 +36,7 @@ export default function CartCard(props) {
             "error",
             "",
             `Se elimino ${item.nombre}`,
-            "top",
-            2000
+            "",
           );
           removeFromCart(item);
         }}

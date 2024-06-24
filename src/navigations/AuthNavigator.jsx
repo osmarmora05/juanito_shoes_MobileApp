@@ -11,7 +11,7 @@ export default function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="SignIn"
           component={SignIn}
           options={{ headerShown: false }}
@@ -29,7 +29,7 @@ export default function AuthNavigator() {
           options={{
             headerTitle: "Has olvidado tu contraseña",
           }}
-        /> */}
+        />
         <Stack.Screen
           name="HomeTab"
           component={HomeNavigator}
