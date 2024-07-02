@@ -26,7 +26,7 @@ export default function CartCard(props) {
       <TouchableOpacity
         style={styles.trashContainer}
         onPress={() => {
-          console.log("Pronto")
+          console.log("Pronto");
         }}
       >
         <Trash width={14} height={14} />
