@@ -53,7 +53,7 @@ export class Card {
       if (!sizeEntry) {
         sizeEntry = {
           id_modelo: item.id_modelo,
-          id_inventario: item.id_inventario,
+          id_inventario: [],
           talla: item.talla,
           imagenes: [],
           colores: [],
@@ -61,12 +61,11 @@ export class Card {
         };
         aux.push(sizeEntry);
       }
-
+      sizeEntry.id_inventario.push(item.id_inventario);
       sizeEntry.imagenes.push(item.imagen);
       sizeEntry.colores.push(item.color);
       sizeEntry.existencias.push(item.cantidad);
     });
-
     return aux;
   }
 
