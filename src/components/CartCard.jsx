@@ -5,10 +5,20 @@ import { theme } from "../theme";
 import QuantityOfProducts from "./QuantityOfProducts";
 import { useCart } from "../hooks/useCart";
 import { showCustomToast } from "../utils";
+import useCount from "../hooks/useCount";
+import { useEffect } from "react";
 
 export default function CartCard(props) {
-  const { item } = props;
+  const { item, fun } = props;
   const { removeFromCart } = useCart();
+  const { count, increment, decrement, reset } = useCount(
+    item.cantidad_compra,
+    item.existencias
+  );
+
+  useEffect(() => {
+    fun(count);
+  }, [count]);
 
   return (
     <View style={styles.mainBox}>
@@ -17,27 +27,53 @@ export default function CartCard(props) {
           <Image style={styles.image} source={{ uri: `${item.imagen}` }} />
         </View>
         <View style={styles.infoContainer}>
-          <StyledText extraSmall textAlign="left" numberOfLines={1}>
-            {item.nombre}
-          </StyledText>
-          <StyledText extraSmall bold textAlign="left" numberOfLines={1}>
-            ${item.precio}
-          </StyledText>
-          <QuantityOfProducts
-            maximumValue={item.existencias}
-            value={item.cantidad_compra}
-          />
+          <View>
+            <StyledText extraSmall textAlign="left" numberOfLines={1}>
+              {item.nombre}
+            </StyledText>
+            <Text
+              style={{
+                fontSize: 15,
+                color: theme.colors.text.hint,
+              }}
+            >
+              Color: {item.color}
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 15,
+                color: theme.colors.text.hint,
+              }}
+            >
+              Talla: {item.talla}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingRight: 10,
+            }}
+          >
+            <StyledText extraSmall bold textAlign="left">
+              ${(item.precio * count).toFixed(2)}
+            </StyledText>
+            <QuantityOfProducts
+              increase={increment}
+              decrease={decrement}
+              value={count}
+              maximumValue={item.existencias}
+            />
+          </View>
         </View>
       </View>
       <TouchableOpacity
         style={styles.trashContainer}
         onPress={() => {
-          showCustomToast(
-            "error",
-            "",
-            `Se elimino ${item.nombre}`,
-            "",
-          );
+          showCustomToast("error", "", `Se elimino ${item.nombre}`, "");
           removeFromCart(item);
         }}
       >
@@ -77,7 +113,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     position: "absolute",
-    bottom: 0,
+    top: 0,
     right: 0,
     justifyContent: "center",
     alignItems: "center",
@@ -85,5 +121,7 @@ const styles = StyleSheet.create({
 
   infoContainer: {
     width: "65%",
+    justifyContent: "space-between",
+    height: 100,
   },
 });

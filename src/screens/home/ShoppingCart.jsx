@@ -11,7 +11,12 @@ import CartCard from "../../components/CartCard";
 import { useCart } from "../../hooks/useCart";
 import Toast from "react-native-toast-message";
 
-export default function ShoppingCart({ navigation }) {
+export default function ShoppingCart() {
+  function getCount(count) {
+    setCount(count);
+  }
+  const [count, setCount] = useState(1);
+
   // Contexto del carrito
   const { cart } = useCart();
 
@@ -24,15 +29,15 @@ export default function ShoppingCart({ navigation }) {
     // NewTotal tendra el valor total de los productos, multiplicando la cantidad de productos que lleva el usuario y el precio
     let newTotal = 0;
     cart.forEach((item) => {
-      newTotal += item.cantidad_compra * item.precio;
+      newTotal += count * item.precio;
     });
     setTotal(newTotal);
-  }, [cart]);
+  }, [cart, count]);
 
   const renderItem = ({ item }) => {
     return (
       <View style={styles.productCardContainer}>
-        <CartCard item={item} />
+        <CartCard item={item} fun={getCount} />
       </View>
     );
   };
