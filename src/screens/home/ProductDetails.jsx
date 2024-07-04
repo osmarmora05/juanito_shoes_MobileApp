@@ -97,9 +97,10 @@ export default function ProductDetails() {
     const selectedImage = selectedShoe.imagenes[selectedColorIndex];
     const selectedColor = selectedShoe.colores[selectedColorIndex];
     const selectedQuantity = count;
+    const idInventario = selectedShoe.id_inventario[selectedColorIndex];
     addToCart({
       id_modelo: selectedShoe.id_modelo,
-      id_inventario: selectedShoe.id_inventario,
+      id_inventario: idInventario,
       talla: selectedShoe.talla,
       imagen: selectedImage,
       color: selectedColor,
