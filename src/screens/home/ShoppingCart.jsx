@@ -138,7 +138,7 @@ export default function ShoppingCart({ navigation }) {
                 // Primero se crea el pedido
                 const pedido = await agregarPedido({
                   user_id: user.id,
-                  total: total + total * 0.15,
+                  total: (total + total * 0.15).toFixed(2),
                   sub_total: total,
                 });
 
