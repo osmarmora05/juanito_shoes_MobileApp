@@ -14,7 +14,6 @@ import { useFilters } from "../../hooks/useFilters";
 import StyledText from "../../components/ui/StyledText";
 import Header from "../../components/ui/Header";
 
-
 /*
   Referencias
   - https://www.youtube.com/watch?v=jow2lXber3A - Video en el que me base para crear la logica para crear el scroll infinito
@@ -22,7 +21,6 @@ import Header from "../../components/ui/Header";
   - https://www.youtube.com/watch?v=SitSOHyvBuE - Explica uso del refreshing
   - https://www.youtube.com/watch?v=pHLFJs7jlI4 - Explica uso del refreshing
 */
-
 
 /*
   `createArraysOfCardObjects`: Permite crear un arreglo de objetos Card
@@ -56,10 +54,9 @@ export default function Home({ navigation }) {
   // Flag que permite saber si se refrescan los datos del estado shoes
   const [refreshing, setRefreshing] = useState(false);
   // Scroll infinito
-  
+
   // Filtros
   const { filter, filterShoes, updateFilter } = useFilters();
-
 
   /*
     `getShoes`: Funcion que permite obtener los zapatos en existencias obteniendolo desde el controlador(funcion) `getLimitedInventario`. Recibe por parametro `reset` que es una
@@ -72,6 +69,7 @@ export default function Home({ navigation }) {
     5. Chequeamos que `reset` sea true, en caso de ser asi, actualizamos el estado `shoes` con el arreglo de objetos Cards, en caso de ser false agregamos los objetos cards alfinal del arreglo del estado `shoes`
     6. Actualizamos el estado `loading` para indicarle al usuario que finalizo el fetch
   */
+
   const getShoes = async (reset = false) => {
     try {
       setLoading(true);
@@ -81,22 +79,27 @@ export default function Home({ navigation }) {
         setIsShoes(false);
         return;
       }
-
+  
       const arraysOfCardObject = createArraysOfCardObjects(result);
-
+  
       if (reset) {
         setShoes(arraysOfCardObject);
       } else {
-        setShoes((prevData) => [...prevData, ...arraysOfCardObject]);
+        const filteredCards = arraysOfCardObject.filter(
+          (newItem) => !shoes.some((item) => item.modeloId === newItem.modeloId)
+        );
+        setShoes((prevData) => [...prevData, ...filteredCards]);
       }
-
-      setLoading(false);
+  
       if (refreshing) {
         setRefreshing(false);
       }
     } catch (e) {
       console.log("There was an error in getShoes ", e);
       throw e;
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -146,23 +149,23 @@ export default function Home({ navigation }) {
   // CRITCAL: problemas de core, muchas consultas
   return (
     <View style={styles.container}>
-      <Header navigation={navigation}/>
+      <Header navigation={navigation} />
       <FlatList
         data={filterShoes(shoes)}
         keyExtractor={(item) => `${item.modeloId}`}
         renderItem={renderItem}
         numColumns={2}
-        // onEndReached={isShoes && loadMoreShoes}
-        // onEndReachedThreshold={0.1}
-        // refreshing={refreshing}
-        // onRefresh={handleRefresh}
-        // ListFooterComponent={() =>
-        //   loading ? (
-        //     <ActivityIndicator />
-        //   ) : !isShoes ? (
-        //     <StyledText>Vaya! Parece que has llegado al final</StyledText>
-        //   ) : null
-        // }
+        onEndReached={isShoes && loadMoreShoes}
+        onEndReachedThreshold={0.1}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+        ListFooterComponent={() =>
+          loading ? (
+            <ActivityIndicator />
+          ) : !isShoes ? (
+            <StyledText>Vaya! Parece que has llegado al final</StyledText>
+          ) : null
+        }
         contentContainerStyle={styles.contentContainerStyle}
       />
     </View>
