@@ -1,0 +1,16 @@
+import { pb } from "../lib/pocketbase";
+
+export async function agregarPedido({
+  user_id = "",
+  total = 0,
+  sub_total = 0,
+}) {
+  const consulta = {
+    user_id: user_id,
+    total: total,
+    sub_total: sub_total,
+    estado: "Activo",
+  };
+  const record = await pb.collection("Pedidos").create(consulta);
+  return record;
+}
