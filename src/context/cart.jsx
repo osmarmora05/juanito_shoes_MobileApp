@@ -8,7 +8,6 @@ import { createContext, useState } from "react";
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-
   // Almacena los zapatos, agregado en el carrito
   const [cart, setCart] = useState([]);
 
@@ -20,6 +19,7 @@ export function CartProvider({ children }) {
     3. Si no hay un valor, entoces agregarmos el zapato que se le esta pasando por parametro al final
        del estado
   */
+
   const addToCart = (shoe) => {
     // Primero verificamos de que el zapato ya esté en el carrito
     const shoeInCartIndex = cart.findIndex(
@@ -30,20 +30,27 @@ export function CartProvider({ children }) {
     );
 
     if (shoeInCartIndex >= 0) {
-      const newCart = structuredClone(cart);
-      // Sustiuimos valor, pero idealmente si tiene que ir sumando
-      // newCart[shoeInCartIndex].cantidad_compra += shoe.cantidad_compra;
-      newCart[shoeInCartIndex].cantidad_compra = shoe.cantidad_compra;
-      return setCart(newCart);
+      const newCart = cart.map((item, index) => {
+        if (index === shoeInCartIndex) {
+          return {
+            ...item,
+            // cantidad_compra: item.cantidad_compra + shoe.cantidad_compra,
+            cantidad_compra: shoe.cantidad_compra,
+          };
+        }
+        return item;
+      });
+      setCart(newCart); // Actualizamos el estado del carrito
+    } else {
+      // El zapato no está en el carrito, lo añadimos
+      setCart((prevState) => [
+        ...prevState,
+        {
+          ...shoe,
+          cantidad_compra: shoe.cantidad_compra, // Añadimos cantidad_compra al nuevo elemento del carrito
+        },
+      ]);
     }
-
-    // El zapato no está en el carrito
-    setCart((prevState) => [
-      ...prevState,
-      {
-        ...shoe,
-      },
-    ]);
   };
 
   /*
