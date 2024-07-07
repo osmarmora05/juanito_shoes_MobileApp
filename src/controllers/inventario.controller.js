@@ -51,7 +51,7 @@ async function getLimitedInventario(page = 1, perpPage = 8) {
       const modeloId = item.id;
       const inventario = await pb.collection("Inventario").getFullList({
         filter: `modelo_id = "${modeloId}"`,
-        // Hacemos un expand de las llaves foráneas, para así poder acceder 
+        // Hacemos un expand de las llaves foráneas, para así poder acceder
         // a columnas interesante de esa tabla
         expand:
           "modelo_id.catalogo_id.marca_id,modelo_id.catalogo_id.categoria_id",
@@ -110,4 +110,36 @@ async function getImageShoe(id) {
   return url;
 }
 
-export { getLimitedInventario };
+/*
+  'getInventario': Permite obtener el inventario de un zapato mediante el id 
+*/
+
+async function getInventarioById(id) {
+  const record = await pb.collection("Inventario").getOne(id);
+  return record;
+}
+
+/* 
+  'ModificarInventario': Permite modificar el inventario de cada zapato (Esto se hace cuando el usuario realiza una compra, 
+  se le resta la cantidad de zapatos que compro al inventario de la tabla inventario)
+*/
+
+async function modificarInventario(cart) {
+  const { id, cantidad, color, modelo_id, talla } = await getInventarioById(
+    cart.id_inventario
+  );
+  // console.log("Data", { id, cantidad, color, modelo_id, talla });
+
+  const consulta = {
+    cantidad: cantidad - cart.cantidad_compra,
+    talla: talla,
+    color: color,
+    modelo_id: modelo_id,
+    // inventario_id: id,
+  };
+
+  const record = await pb.collection("Inventario").update(id, consulta);
+  console.log("record", record);
+}
+
+export { getLimitedInventario, modificarInventario };
