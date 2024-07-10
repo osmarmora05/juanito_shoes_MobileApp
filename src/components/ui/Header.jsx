@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   containerPrincipal: {
     padding: 20,
     gap: 10,
+    minWidth: "100%",
   },
   containerSubPrincipal: {
     position: "relative",

@@ -3,10 +3,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { useState, useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
-import { FlatList } from "react-native";
+import { FlatList, SectionList } from "react-native";
 import { theme } from "../../theme";
 import { getLimitedInventario } from "../../controllers/index.controller";
 import { Card } from "../../Card";
@@ -57,6 +58,7 @@ export default function Home({ navigation }) {
 
   // Filtros
   const { filter, filterShoes, updateFilter } = useFilters();
+  const [selectedButton, setSelectedButton] = useState("Todos");
 
   /*
     `getShoes`: Funcion que permite obtener los zapatos en existencias obteniendolo desde el controlador(funcion) `getLimitedInventario`. Recibe por parametro `reset` que es una
@@ -72,16 +74,19 @@ export default function Home({ navigation }) {
 
   const getShoes = async (reset = false) => {
     try {
+      console.log("getShoes");
       setLoading(true);
       const result = await getLimitedInventario(currentPage);
-      if (result == null) {
+      console.log(result);
+      if (result == null || result.length == 0) {
+        console.log("Dentro del if");
         setLoading(false);
         setIsShoes(false);
         return;
       }
-  
+
       const arraysOfCardObject = createArraysOfCardObjects(result);
-  
+
       if (reset) {
         setShoes(arraysOfCardObject);
       } else {
@@ -90,16 +95,13 @@ export default function Home({ navigation }) {
         );
         setShoes((prevData) => [...prevData, ...filteredCards]);
       }
-  
-      if (refreshing) {
-        setRefreshing(false);
-      }
+
+      setLoading(false);
+      setRefreshing(false);
+      setIsShoes(true);
     } catch (e) {
       console.log("There was an error in getShoes ", e);
       throw e;
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
     }
   };
 
@@ -107,7 +109,7 @@ export default function Home({ navigation }) {
     `loadMoreShoes`: Permite obtener mas zapatos aumento la lista paginada, pero antes hay que chequear al valor del estado `loading` y si el estado `isShoes` (flag que indica que si traemos mas datos, sea un valor o nulo) es true
   */
   const loadMoreShoes = () => {
-    if (!loading && isShoes) {
+    if (!loading && isShoes && selectedButton === "Todos") {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -119,7 +121,18 @@ export default function Home({ navigation }) {
   const handleRefresh = () => {
     setRefreshing(true);
     setCurrentPage(1);
+    setShoes([]);
     getShoes(true);
+  };
+
+  // TODO: DOcs
+  const handleButtonPress = (value) => {
+    setSelectedButton(value);
+    updateFilter(value);
+
+    if (value !== "Todos") {
+      setLoading(false);
+    }
   };
 
   const renderItem = ({ item, index }) => {
@@ -135,8 +148,66 @@ export default function Home({ navigation }) {
     );
   };
 
+  const renderHeader = () => {
+    // Obtenemos categorías únicas de los zapatos
+    const uniqueCategories = [];
+    shoes.forEach((item) => {
+      if (!uniqueCategories.includes(item.category)) {
+        uniqueCategories.push(item.category);
+      }
+    });
+
+    // Añadimos 'Todos' como la primera categoría
+    const categories = ["Todos", ...uniqueCategories];
+    return (
+      <View>
+        <Header navigation={navigation} />
+        <ScrollView
+          horizontal
+          style={{
+            maxHeight: 45,
+            paddingLeft: 20,
+            paddingRight: 20,
+          }}
+        >
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleButtonPress(category)}
+            >
+              <View
+                style={{
+                  backgroundColor:
+                    selectedButton === category
+                      ? theme.colors.bg.primary
+                      : theme.colors.bg.default,
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  marginRight: 10,
+                  borderRadius: 5,
+                }}
+              >
+                <StyledText
+                  {...(selectedButton === category
+                    ? { textLight: true }
+                    : { textDefault: true })}
+                >
+                  {category}
+                </StyledText>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
   useEffect(() => {
-    getShoes();
+    if (selectedButton === "Todos") {
+      getShoes();
+    }
+
+    console.log(currentPage);
   }, [currentPage]);
 
   // useEffect(() => {
@@ -149,23 +220,17 @@ export default function Home({ navigation }) {
   // CRITCAL: problemas de core, muchas consultas
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
       <FlatList
         data={filterShoes(shoes)}
         keyExtractor={(item) => `${item.modeloId}`}
+        ListHeaderComponent={renderHeader}
         renderItem={renderItem}
         numColumns={2}
-        onEndReached={isShoes && loadMoreShoes}
+        onEndReached={loadMoreShoes}
         onEndReachedThreshold={0.1}
         refreshing={refreshing}
         onRefresh={handleRefresh}
-        ListFooterComponent={() =>
-          loading ? (
-            <ActivityIndicator />
-          ) : !isShoes ? (
-            <StyledText>Vaya! Parece que has llegado al final</StyledText>
-          ) : null
-        }
+        ListFooterComponent={() => (loading ? <ActivityIndicator /> : null)}
         contentContainerStyle={styles.contentContainerStyle}
       />
     </View>
@@ -183,4 +248,4 @@ const styles = StyleSheet.create({
   productCardcontainer: {
     margin: 20,
   },
-});
+})
