@@ -5,6 +5,8 @@ import { theme } from "../../theme";
 
 export default function StyledText({
   hint,
+  textDefault,
+  textLight,
   light,
   bold,
   extraBold,
@@ -42,7 +44,13 @@ export default function StyledText({
         : extraSmall
         ? theme.font.extraSmall.fontSize
         : theme.font.normal.fontSize,
-      color: hint ? theme.colors.text.hint : theme.colors.text.default,
+      color: hint
+        ? theme.colors.text.hint
+        : textDefault
+        ? theme.colors.text.default
+        : textLight
+        ? theme.colors.text.defaultLight
+        : theme.colors.text.default,
       textAlign: textAlign,
       textTransform: uppercase ? "uppercase" : "none",
     },
