@@ -5,16 +5,28 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
+  Modal,
 } from "react-native";
 import { theme } from "../../theme";
 import CartCard from "../../components/CartCard";
 import { useCart } from "../../hooks/useCart";
 import Toast from "react-native-toast-message";
+import {
+  agregarMovimiento,
+  agregarPedido,
+} from "../../controllers/index.controller";
+import { cargarUsuarioLocal } from "../../localStorage/usuario.local";
+import { modificarInventario } from "../../controllers/inventario.controller";
 
-export default function ShoppingCart() {
+export default function ShoppingCart({ navigation }) {
   function getCount(count) {
     setCount(count);
   }
+
+  // Carga de los productos en el carrito
+  const [isLoading, setIsLoading] = useState(false);
+
   const [count, setCount] = useState(1);
 
   // Contexto del carrito
@@ -34,6 +46,31 @@ export default function ShoppingCart() {
     setTotal(newTotal);
   }, [cart, count]);
 
+  const [user, setUser] = useState({});
+  // Usuario que esta realizando la compra
+  useEffect(() => {
+    const getUsuario = async () => {
+      setUser(await cargarUsuarioLocal());
+    };
+    getUsuario();
+  }, []);
+
+  const agregarMovimientosPedido = async (pedido) => {
+    cart.forEach(async (item) => {
+      await agregarMovimiento({
+        data: item,
+        user_id: user.id,
+        pedido_id: pedido.id,
+      });
+    });
+  };
+
+  const modificarInventarioCarrito = async () => {
+    cart.forEach(async (item) => {
+      await modificarInventario(item);
+    });
+  };
+
   const renderItem = ({ item }) => {
     return (
       <View style={styles.productCardContainer}>
@@ -45,6 +82,18 @@ export default function ShoppingCart() {
   return (
     <>
       <View style={styles.container}>
+        <Modal
+          transparent={true}
+          animationType="none"
+          visible={isLoading}
+          onRequestClose={() => {}}
+        >
+          <View style={styles.modalBackground}>
+            <View style={styles.activityIndicatorWrapper}>
+              <ActivityIndicator size="large" color={theme.colors.primary} />
+            </View>
+          </View>
+        </Modal>
         {cart && cart.length > 0 ? (
           <>
             <Text style={styles.title}>{cart.length} Items</Text>
@@ -82,8 +131,28 @@ export default function ShoppingCart() {
           </View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              console.log("Pronto carrito");
+            onPress={async () => {
+              try {
+                setIsLoading(true);
+
+                // Primero se crea el pedido
+                const pedido = await agregarPedido({
+                  user_id: user.id,
+                  total: (total + total * 0.15).toFixed(2),
+                  sub_total: total,
+                });
+
+                // Agregar los movimientos de los productos (Salidas)
+                await agregarMovimientosPedido(pedido);
+
+                // Modificar el estado de los productos en el inventario
+                await modificarInventarioCarrito();
+
+                setIsLoading(false);
+                navigation.navigate("Congratulations");
+              } catch (error) {
+                console.log("Error en ShoppingCart: ", error);
+              }
             }}
           >
             <Text style={styles.buttonText}>Ok</Text>
@@ -174,5 +243,20 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#fff",
+  },
+  modalBackground: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: "#FFFFFF",
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

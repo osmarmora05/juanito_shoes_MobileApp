@@ -18,6 +18,7 @@ export default function CartCard(props) {
 
   useEffect(() => {
     fun(count);
+    item.cantidad_compra = count;
   }, [count]);
 
   return (

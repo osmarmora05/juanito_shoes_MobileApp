@@ -3,6 +3,7 @@ import ProductDetails from "../screens/home/ProductDetails";
 import ShoppingCart from "../screens/home/ShoppingCart";
 import BottomTabNavigator from "./BottomTabNavigator";
 import EditProfile from "../screens/home/EditProfile";
+import Congratulations from "../screens/home/Congratulations";
 
 const Stack = createStackNavigator();
 
@@ -29,14 +30,21 @@ export default function HomeNavigator() {
         options={{
           headerTitle: "Detalles del zapato",
         }}
-      />      
+      />
       <Stack.Screen
-      name="EditProfile"
-      component={EditProfile}
-      options={{
-        headerTitle: "Editar perfil",
-      }}
-    />
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          headerTitle: "Editar perfil",
+        }}
+      />
+      <Stack.Screen
+        name="Congratulations"
+        component={Congratulations}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

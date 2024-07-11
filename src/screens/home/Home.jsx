@@ -85,6 +85,7 @@ export default function Home({ navigation }) {
         return;
       }
 
+
       const arraysOfCardObject = createArraysOfCardObjects(result);
 
       if (reset) {
