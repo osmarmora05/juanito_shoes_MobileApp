@@ -142,4 +142,15 @@ async function modificarInventario(cart) {
   console.log("record", record);
 }
 
-export { getLimitedInventario, modificarInventario };
+/*
+ 'getInventarioByOrder': Permite obtener el inventario de un zapato mediante el modelo_id, color y talla.
+ Esto me servira para saber los detalles de un zapato en especifico de un pedido
+*/
+async function getInventarioByOrder({ modelo_id, color, talla }) {
+  const record = await pb.collection("Inventario").getFullList({
+    filter: `modelo_id = "${modelo_id}" && color = "${color}" && talla = "${talla}"`, expand:'modelo_id.catalogo_id'
+  });
+  return record[0]
+}
+
+export { getLimitedInventario, modificarInventario, getInventarioByOrder };

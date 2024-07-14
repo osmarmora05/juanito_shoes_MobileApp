@@ -3,6 +3,7 @@ import CongratulationsLogo from "../../../assets/icons/Congratulations.svg";
 import StyledText from "../../components/ui/StyledText";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import { useCart } from "../../hooks/useCart";
+import { CommonActions } from "@react-navigation/native";
 
 export default function Congratulations({ navigation }) {
   const { clearCart } = useCart();
@@ -20,7 +21,18 @@ export default function Congratulations({ navigation }) {
         <StyledPrimaryButton
           handleOnPress={() => {
             clearCart();
-            navigation.navigate("Home");
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  { name: 'BottomTabNavigator' },
+                  {
+                    name: 'BottomTabNavigator',
+                  },
+                ],
+              })
+            );
+            
           }}
           text="Volver al menú principal"
         />

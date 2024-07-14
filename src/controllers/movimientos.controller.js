@@ -18,3 +18,14 @@ export async function agregarMovimiento({
 //   console.log("record", record);
 //   return record;
 }
+
+export async function obtenerMovimientos({ pedido_id }) {
+  try {
+    const record = await pb
+      .collection("Movimientos")
+      .getFullList({}, { filter: `pedido_id = "${pedido_id}"` });
+    return record
+  } catch (error) {
+    console.log(error);
+  }
+}
