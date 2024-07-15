@@ -37,6 +37,7 @@ export default function Search({ navigation }) {
       const result = await getSpecificInventory(shoeName);
       if (result == null || result.length == 0) {
         setShoes([]);
+        setLoading(false)
       } else {
         const arraysOfCardObject = createArraysOfCardObjects(result);
         setShoes(arraysOfCardObject);
