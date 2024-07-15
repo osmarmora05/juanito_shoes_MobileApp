@@ -28,7 +28,7 @@ export default function OrderDetails() {
     <View style={styles.container}>
       <View style={styles.container_order}>
         <StyledText medium>Detalles del pedido</StyledText>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           {movimientoPedido.map((movimiento, index) => {
             const inventarioPedido = inventarios[index];
             const imagen = inventarioPedido
@@ -47,7 +47,8 @@ export default function OrderDetails() {
                     ?.nombre || "Nombre no disponible"
                 }
                 precio={
-                  inventarioPedido?.expand?.modelo_id?.precio || "Nombre no disponible"
+                  inventarioPedido?.expand?.modelo_id?.precio ||
+                  "Nombre no disponible"
                 }
                 color={movimiento.color}
                 imagen={imagen}
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
   },
   container_order: {
     padding: 15,
+    height: "100%",
   },
   container_cart: {
     backgroundColor: "#fff",
@@ -105,6 +107,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     width: "100%",
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 130,
   },
   sub_container_cart: {
     width: "100%",

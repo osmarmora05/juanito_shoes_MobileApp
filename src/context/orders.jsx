@@ -1,10 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { cargarUsuarioLocal } from "../localStorage/usuario.local";
 import { obtenerPedido } from "../controllers/pedidos.controller";
 import {
   obtenerMovimientos,
   getInventarioByOrder,
 } from "../controllers/index.controller";
+import { UserContext } from "./user";
+import { useUser } from "../hooks/useUser";
 
 /* 
     'OrderContext' Contexto para traer los detalles de cada pedido
@@ -22,24 +24,12 @@ import {
 export const OrderContext = createContext();
 
 export function OrderProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const { user } = useUser();
+
   const [pedidos, setPedidos] = useState([]);
   const [movimientoPedido, setMovimientoPedido] = useState([]);
   const [inventarios, setInventarios] = useState([]);
   const [loading, setLoading] = useState(false);
-
-    // Obtener al usuario
-  useEffect(() => {
-    const getUsuario = async () => {
-      try {
-        const usuarioCargado = await cargarUsuarioLocal();
-        setUser(usuarioCargado);
-      } catch (error) {
-        console.error("Error loading user:", error);
-      }
-    };
-    getUsuario();
-  }, []);
 
   const getPedidos = async () => {
     if (user) {
@@ -65,14 +55,14 @@ export function OrderProvider({ children }) {
       setInventarios(inventariosResult);
     } catch (error) {
       console.error("Error fetching inventories:", error);
-    } finally{
-        setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchMovimientos = async ({ id }) => {
     try {
-        setLoading(true);
+      setLoading(true);
       const movimientos = await obtenerMovimientos({ pedido_id: id });
       setMovimientoPedido(movimientos);
     } catch (error) {
@@ -81,9 +71,7 @@ export function OrderProvider({ children }) {
   };
 
   useEffect(() => {
-    if (user) {
-      getPedidos();
-    }
+    getPedidos();
   }, [user]);
 
   useEffect(() => {
@@ -93,7 +81,16 @@ export function OrderProvider({ children }) {
   }, [movimientoPedido]);
 
   return (
-    <OrderContext.Provider value={{ movimientoPedido, inventarios, pedidos, fetchMovimientos, loading }}>
+    <OrderContext.Provider
+      value={{
+        movimientoPedido,
+        inventarios,
+        pedidos,
+        fetchMovimientos,
+        loading,
+        getPedidos
+      }}
+    >
       {children}
     </OrderContext.Provider>
   );

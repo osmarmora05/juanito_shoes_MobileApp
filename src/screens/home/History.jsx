@@ -4,14 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Modal,
-  ActivityIndicator,
 } from "react-native";
 import StyledText from "../../components/ui/StyledText";
-import { useEffect, useState } from "react";
-import { cargarUsuarioLocal } from "../../localStorage/usuario.local";
-import { obtenerPedido } from "../../controllers/pedidos.controller";
-import { theme } from "../../theme";
 import { useOrderDetails } from "../../hooks/useOrderDetails";
 
 export default function History({ navigation }) {

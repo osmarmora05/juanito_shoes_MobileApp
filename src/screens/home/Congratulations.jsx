@@ -4,9 +4,11 @@ import StyledText from "../../components/ui/StyledText";
 import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton";
 import { useCart } from "../../hooks/useCart";
 import { CommonActions } from "@react-navigation/native";
+import { useOrderDetails } from "../../hooks/useOrderDetails";
 
 export default function Congratulations({ navigation }) {
   const { clearCart } = useCart();
+  const { getPedidos } = useOrderDetails();
 
   return (
     <View style={styles.container}>
@@ -21,6 +23,7 @@ export default function Congratulations({ navigation }) {
         <StyledPrimaryButton
           handleOnPress={() => {
             clearCart();
+            getPedidos();
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
