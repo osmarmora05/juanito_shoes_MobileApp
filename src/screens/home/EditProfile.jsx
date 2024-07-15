@@ -33,8 +33,7 @@ import {
 import { useUser } from "../../hooks/useUser";
 
 export default function EditProfile({ navigation }) {
-  const { user, agregarUsuario } = useUser()
-
+  const { user, agregarUsuario } = useUser();
 
   const [userImage, setUserImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,13 +42,7 @@ export default function EditProfile({ navigation }) {
   useEffect(() => {
     const obtenerUsuario = async () => {
       try {
-        setUserImage(
-          getImagen(
-            user.collectionId,
-            user.id,
-            user.foto
-          )
-        );
+        setUserImage(getImagen(user.collectionId, user.id, user.foto));
         setCargandoDatos(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -89,7 +82,6 @@ export default function EditProfile({ navigation }) {
         // Actualiza el usuario en el contexto y en el AsyncStorage
         await agregarUsuarioLocal(registro);
         agregarUsuario(registro);
-        
 
         setIsLoading(false);
         showCustomToast(

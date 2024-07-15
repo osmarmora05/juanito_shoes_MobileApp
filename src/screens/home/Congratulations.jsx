@@ -5,21 +5,37 @@ import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton
 import { useCart } from "../../hooks/useCart";
 import { CommonActions } from "@react-navigation/native";
 import { useOrderDetails } from "../../hooks/useOrderDetails";
+import { MotiView } from "moti";
 
 export default function Congratulations({ navigation }) {
   const { clearCart } = useCart();
   const { getPedidos } = useOrderDetails();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.image}>
+    <MotiView
+      from={{ opacity: 0, translateY: 50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ delay: 100 }}
+      style={styles.container}
+    >
+      <MotiView
+        from={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: 200 }}
+        style={styles.image}
+      >
         <CongratulationsLogo />
-      </View>
+      </MotiView>
       <StyledText bold extraMedium>
         ¡Felicidades!
       </StyledText>
       <StyledText medium>Tu orden esta lista!</StyledText>
-      <View style={{ marginTop: 10 }}>
+      <MotiView
+        from={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: 300 }}
+        style={{ marginTop: 10 }}
+      >
         <StyledPrimaryButton
           handleOnPress={() => {
             clearCart();
@@ -28,19 +44,18 @@ export default function Congratulations({ navigation }) {
               CommonActions.reset({
                 index: 0,
                 routes: [
-                  { name: 'BottomTabNavigator' },
+                  { name: "BottomTabNavigator" },
                   {
-                    name: 'BottomTabNavigator',
+                    name: "BottomTabNavigator",
                   },
                 ],
               })
             );
-            
           }}
           text="Volver al menú principal"
         />
-      </View>
-    </View>
+      </MotiView>
+    </MotiView>
   );
 }
 

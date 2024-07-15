@@ -41,6 +41,7 @@ export default function OrderDetails() {
 
             return (
               <OrderCard
+                time={(index + 1) *500}
                 key={index}
                 nombre={
                   inventarioPedido?.expand?.modelo_id?.expand?.catalogo_id

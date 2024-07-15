@@ -16,7 +16,6 @@ export async function agregarPedido({
 }
 
 export async function obtenerPedido({ user_id }) {
-  console.log("user_id", user_id)
   try {
     const record = await pb
       .collection("Pedidos")

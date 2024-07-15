@@ -51,12 +51,11 @@ export function OrderProvider({ children }) {
           talla: movimiento.talla,
         })
       );
+      setLoading(false);
       const inventariosResult = await Promise.all(promises);
       setInventarios(inventariosResult);
     } catch (error) {
       console.error("Error fetching inventories:", error);
-    } finally {
-      setLoading(false);
     }
   };
 

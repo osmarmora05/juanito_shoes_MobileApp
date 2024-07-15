@@ -16,6 +16,8 @@ import QuantityOfProducts from "../../components/QuantityOfProducts";
 import useCount from "../../hooks/useCount";
 import { useCart } from "../../hooks/useCart";
 import { MotiView, MotiImage } from "moti";
+import { showCustomToast } from "../../utils";
+import Toast from "react-native-toast-message";
 
 // `color`: Diccionario que contiene los colores en español (que devuelve pb) y retornar su valor correspondiente en hex
 const colors = {
@@ -110,6 +112,11 @@ export default function ProductDetails() {
       nombre: item.name,
       precio: item.price,
     });
+    showCustomToast(
+      "success",
+      "Se agregó al carrito correctamente!",
+      `Agregado al carrito r${selectedQuantity} ${item.name}`
+    );
   };
 
   return (
@@ -118,6 +125,7 @@ export default function ProductDetails() {
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ delay: 100 }}
     >
+      <Toast />
       <ScrollView style={styles.container}>
         <View style={styles.mainContainer}>
           <View style={styles.innerContainer}>

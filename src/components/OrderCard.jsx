@@ -1,3 +1,4 @@
+import { MotiView } from "moti";
 import { theme } from "../theme";
 import StyledText from "./ui/StyledText";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -9,10 +10,16 @@ export default function OrderCard({
   talla,
   cantidad,
   precio,
+  time,
 }) {
   return (
     <>
-      <View style={styles.mainBox}>
+      <MotiView
+        from={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: time }}
+        style={styles.mainBox}
+      >
         <View style={styles.box}>
           <View style={styles.containerimage}>
             <Image style={styles.image} source={{ uri: `${imagen}` }} />
@@ -46,7 +53,7 @@ export default function OrderCard({
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
-                paddingRight: 10
+                paddingRight: 10,
               }}
             >
               <StyledText extraMedium medium>{`$${precio}`}</StyledText>
@@ -54,7 +61,7 @@ export default function OrderCard({
             </View>
           </View>
         </View>
-      </View>
+      </MotiView>
     </>
   );
 }
