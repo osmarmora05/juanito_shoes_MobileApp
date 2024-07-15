@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import QuantityOfProducts from "../../components/QuantityOfProducts";
 import useCount from "../../hooks/useCount";
 import { useCart } from "../../hooks/useCart";
+import { MotiView, MotiImage } from "moti";
 
 // `color`: Diccionario que contiene los colores en español (que devuelve pb) y retornar su valor correspondiente en hex
 const colors = {
@@ -107,142 +108,151 @@ export default function ProductDetails() {
       cantidad_compra: selectedQuantity,
       existencias: parseInt(selectedShoe.existencias[selectedColorIndex]),
       nombre: item.name,
-      precio: item.price
+      precio: item.price,
     });
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.mainContainer}>
-        <View style={styles.innerContainer}>
-          <View style={styles.row}>
-            {/* Size */}
-            {/* TODO: Agregar un scrool vertical por si hay muchas tallas*/}
-            <View style={styles.sizeContainer}>
-              <StyledText extraSmall>Tamaño</StyledText>
-              {shoes.map((x) => (
-                <TouchableOpacity
-                  key={x.talla}
-                  style={[
-                    styles.sizeView,
-                    {
-                      borderColor:
-                        selectedSize === x.talla
-                          ? theme.colors.text.hint
-                          : "#d1d1d1",
-                    },
-                  ]}
-                  onPress={() => handleSizeSelect(x.talla)}
-                >
-                  <StyledText textAlign="center">{x.talla}</StyledText>
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            {/* Image */}
-            <View style={styles.imageContainer}>
-              <Text
-                style={[
-                  styles.brandText,
-                  {
-                    fontSize: mark.length <= 4 ? theme.font.big.fontSize : 84,
-                    textAlignVertical: mark.length <= 4 ? "bottom" : "center",
-                    width: `${widthMultiplier * 100}%`,
-                    height: mark.length <= 4 ? "56%" : "auto",
-                  },
-                ]}
-              >
-                {mark}
-              </Text>
-              <Image
-                style={styles.productImage}
-                source={{
-                  uri: selectedShoe
-                    ? selectedShoe.imagenes[selectedColorIndex]
-                    : item.imageCover,
-                }}
-              />
-            </View>
-
-            {/* Color */}
-            {/* TODO: Agregar un scrool vertical, en el caso que haya muchos zapatos */}
-            <View style={styles.colorContainer}>
-              <StyledText extraSmall>Color</StyledText>
-              {selectedShoe?.colores.map((color, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={[
-                    styles.colorView,
-                    {
-                      borderColor:
-                        selectedColorIndex === index
-                          ? theme.colors.text.hint
-                          : "#d1d1d1",
-                    },
-                  ]}
-                  onPress={() => handleColorSelect(index)}
-                >
-                  <View
+    <MotiView
+      from={{ opacity: 0, translateY: 50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ delay: 100 }}
+    >
+      <ScrollView style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View style={styles.innerContainer}>
+            <View style={styles.row}>
+              {/* Size */}
+              {/* TODO: Agregar un scrool vertical por si hay muchas tallas*/}
+              <View style={styles.sizeContainer}>
+                <StyledText extraSmall>Tamaño</StyledText>
+                {shoes.map((x) => (
+                  <TouchableOpacity
+                    key={x.talla}
                     style={[
-                      styles.colorBlock,
-                      { backgroundColor: colors[`${color}`] },
+                      styles.sizeView,
+                      {
+                        borderColor:
+                          selectedSize === x.talla
+                            ? theme.colors.text.hint
+                            : "#d1d1d1",
+                      },
                     ]}
-                  ></View>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
-          {/* Description */}
-          <View style={styles.descriptionContainer}>
-            {/* Title & Stock */}
-            <View>
-              <View style={{ marginBottom: 10 }}>
-                <StyledText medium extraBold textAlign="start">
-                  {item.name}
-                </StyledText>
+                    onPress={() => handleSizeSelect(x.talla)}
+                  >
+                    <StyledText textAlign="center">{x.talla}</StyledText>
+                  </TouchableOpacity>
+                ))}
               </View>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View>
-                  <StyledText medium bold>
-                    $ {item.price}
-                  </StyledText>
-                  <StyledText normal extraBold hint>
-                    {item.category}
-                  </StyledText>
-                </View>
 
-                <QuantityOfProducts
-                  increase={increment}
-                  decrease={decrement}
-                  value={count}
-                  maximumValue={parseInt(
-                    selectedShoe?.existencias[selectedColorIndex] || "0"
-                  )}
+              {/* Image */}
+              <View style={styles.imageContainer}>
+                <Text
+                  style={[
+                    styles.brandText,
+                    {
+                      fontSize: mark.length <= 4 ? theme.font.big.fontSize : 84,
+                      textAlignVertical: mark.length <= 4 ? "bottom" : "center",
+                      width: `${widthMultiplier * 100}%`,
+                      height: mark.length <= 4 ? "56%" : "auto",
+                    },
+                  ]}
+                >
+                  {mark}
+                </Text>
+                <MotiImage
+                  style={styles.productImage}
+                  source={{
+                    uri: selectedShoe
+                      ? selectedShoe.imagenes[selectedColorIndex]
+                      : item.imageCover,
+                  }}
+                  from={{ opacity: 0, translateY: 50 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  transition={{ delay: 100, type: "timing" }}
                 />
               </View>
+
+              {/* Color */}
+              {/* TODO: Agregar un scrool vertical, en el caso que haya muchos zapatos */}
+              <View style={styles.colorContainer}>
+                <StyledText extraSmall>Color</StyledText>
+                {selectedShoe?.colores.map((color, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={[
+                      styles.colorView,
+                      {
+                        borderColor:
+                          selectedColorIndex === index
+                            ? theme.colors.text.hint
+                            : "#d1d1d1",
+                      },
+                    ]}
+                    onPress={() => handleColorSelect(index)}
+                  >
+                    <View
+                      style={[
+                        styles.colorBlock,
+                        { backgroundColor: colors[`${color}`] },
+                      ]}
+                    ></View>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
-            <View>
-              {/* TODO: No centrar texto: El texto este alineado a la derecha
+
+            {/* Description */}
+            <View style={styles.descriptionContainer}>
+              {/* Title & Stock */}
+              <View>
+                <View style={{ marginBottom: 10 }}>
+                  <StyledText medium extraBold textAlign="start">
+                    {item.name}
+                  </StyledText>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View>
+                    <StyledText medium bold>
+                      $ {item.price}
+                    </StyledText>
+                    <StyledText normal extraBold hint>
+                      {item.category}
+                    </StyledText>
+                  </View>
+
+                  <QuantityOfProducts
+                    increase={increment}
+                    decrease={decrement}
+                    value={count}
+                    maximumValue={parseInt(
+                      selectedShoe?.existencias[selectedColorIndex] || "0"
+                    )}
+                  />
+                </View>
+              </View>
+              <View>
+                {/* TODO: No centrar texto: El texto este alineado a la derecha
                   Y que ocupe todo el tamaño del padre(No justificado)
               */}
-              <StyledText textAlign="center">{item.description}</StyledText>
+                <StyledText textAlign="center">{item.description}</StyledText>
+              </View>
+              <StyledPrimaryButton
+                text={"Agregar al carrito"}
+                handleOnPress={handleAddToCart}
+              />
             </View>
-            <StyledPrimaryButton
-              text={"Agregar al carrito"}
-              handleOnPress={handleAddToCart}
-            />
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </MotiView>
   );
 }
 

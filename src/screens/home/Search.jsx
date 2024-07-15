@@ -14,6 +14,7 @@ import { getSpecificInventory } from "../../controllers/inventario.controller";
 import { Card } from "../../Card";
 import MinCard from "../../components/MinCard";
 import StyledText from "../../components/ui/StyledText";
+import { MotiView } from "moti";
 
 function createArraysOfCardObjects(inventory) {
   const aux = {};
@@ -49,13 +50,19 @@ export default function Search({ navigation }) {
 
   const renderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("ProductDetails", { data: item });
-        }}
+      <MotiView
+        from={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: index * 200 }}
       >
-        <MinCard item={item} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ProductDetails", { data: item });
+          }}
+        >
+          <MinCard item={item} />
+        </TouchableOpacity>
+      </MotiView>
     );
   };
 

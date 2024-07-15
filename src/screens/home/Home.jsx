@@ -14,6 +14,7 @@ import { Card } from "../../Card";
 import { useFilters } from "../../hooks/useFilters";
 import StyledText from "../../components/ui/StyledText";
 import Header from "../../components/ui/Header";
+import { MotiView } from "moti";
 
 /*
   Referencias
@@ -134,14 +135,20 @@ export default function Home({ navigation }) {
 
   const renderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity
-        style={styles.productCardcontainer}
-        onPress={() => {
-          navigation.navigate("ProductDetails", { data: item });
-        }}
+      <MotiView
+        from={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ delay: index * 200 }}
       >
-        <ProductCard item={item} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.productCardcontainer}
+          onPress={() => {
+            navigation.navigate("ProductDetails", { data: item });
+          }}
+        >
+          <ProductCard item={item} />
+        </TouchableOpacity>
+      </MotiView>
     );
   };
 
