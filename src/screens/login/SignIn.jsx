@@ -8,7 +8,7 @@ import {
   Modal,
   ActivityIndicator,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Librerias
 import Toast from "react-native-toast-message";
@@ -33,16 +33,20 @@ import StyledPrimaryButton from "../../components/ui/buttons/StyledPrimaryButton
 
 // Controladores
 import { loginUsuario } from "../../controllers/index.controller";
+import { useUser } from "../../hooks/useUser";
 
 const HEIGHT_WINDOW = Dimensions.get("window").height;
 
 export default function SignIn({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
+  const { agregarUsuario } = useUser()
+
 
   useEffect(() => {
     const checkUser = async () => {
       setIsLoading(true);
       const usuario = await cargarUsuarioLocal();
+      agregarUsuario(usuario)
       if (usuario) {
         // eliminarUsuarioLocal() Probando la funcion xD
         setIsLoading(false);
@@ -145,7 +149,11 @@ export default function SignIn({ navigation }) {
                     "Bienvenido a Juanito store!"
                   );
 
+                  // Se agrega al local storage
                   agregarUsuarioLocal(existeUsuario.record);
+                  
+                  // Se agrega al contexto
+                  agregarUsuario(existeUsuario.record)
                   // const usuario = await cargarUsuarioLocal()
                   // eliminarUsuarioLocal()
 

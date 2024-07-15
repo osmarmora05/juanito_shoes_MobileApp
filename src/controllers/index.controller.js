@@ -5,11 +5,15 @@ import {
   crearUsuario,
 } from "./usuarios.controller";
 
-import { getLimitedInventario, getSpecificInventory } from "./inventario.controller";
+import {getLimitedInventario, modificarInventario, getInventarioByOrder, getSpecificInventory } from "./inventario.controller";
 
-import { agregarPedido } from "./pedidos.controller";
 
-import { agregarMovimiento } from "./movimientos.controller";
+import { agregarPedido, obtenerPedido } from "./pedidos.controller";
+
+import {
+  agregarMovimiento,
+  obtenerMovimientos,
+} from "./movimientos.controller";
 
 export {
   getImagen,
@@ -20,4 +24,8 @@ export {
   crearUsuario,
   agregarMovimiento,
   agregarPedido,
+  obtenerPedido,
+  obtenerMovimientos,
+  getInventarioByOrder,
+  modificarInventario
 };

@@ -5,6 +5,8 @@ import Constants from "expo-constants";
 import AuthNavigator from "./src/navigations/AuthNavigator";
 import { FiltersProvider } from "./src/context/filter";
 import { CartProvider } from "./src/context/cart";
+import { OrderProvider } from "./src/context/orders";
+import { UserProvider } from "./src/context/user";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,11 +21,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <FiltersProvider>
-        <CartProvider>
-          <AuthNavigator />
-        </CartProvider>
-      </FiltersProvider>
+      <UserProvider>
+        <FiltersProvider>
+          <CartProvider>
+            <OrderProvider>
+              <AuthNavigator />
+            </OrderProvider>
+          </CartProvider>
+        </FiltersProvider>
+      </UserProvider>
     </View>
   );
 }

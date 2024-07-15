@@ -5,6 +5,7 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import EditProfile from "../screens/home/EditProfile";
 import Congratulations from "../screens/home/Congratulations";
 import Search from "../screens/home/Search";
+import OrderDetails from "../screens/home/OrderDetails";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,13 @@ export default function HomeNavigator() {
       <Stack.Screen
         name="Search"
         component={Search}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetails}
         options={{
           headerShown: false,
         }}

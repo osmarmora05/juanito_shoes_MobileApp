@@ -14,3 +14,15 @@ export async function agregarPedido({
   const record = await pb.collection("Pedidos").create(consulta);
   return record;
 }
+
+export async function obtenerPedido({ user_id }) {
+  console.log("user_id", user_id)
+  try {
+    const record = await pb
+      .collection("Pedidos")
+      .getFullList({}, { filter: `user_id = "${user_id}"` });
+    return record;
+  } catch (error) {
+    console.log(error);
+  }
+}

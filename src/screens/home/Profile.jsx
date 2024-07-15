@@ -28,20 +28,20 @@ import {
 
 import { getImagen } from "../../controllers/index.controller";
 import Toast from "react-native-toast-message";
+import { useUser } from "../../hooks/useUser";
 
 export default function Profile({ navigation }) {
   const [userImage, setUserImage] = useState(null);
-  const [usuario, setUsuario] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [cargarDatos, setCargarDatos] = useState(true);
+  const { user, eliminarUsuario } = useUser()
+
 
   useEffect(() => {
     const obtenerUsuario = async () => {
       try {
-        const usuarioLocal = await cargarUsuarioLocal();
-        if (usuarioLocal) {
-          setUsuario(usuarioLocal);
-          setUserImage(getImagen(usuarioLocal.collectionId, usuarioLocal.id, usuarioLocal.foto));
+        if (user) {
+          setUserImage(getImagen(user.collectionId, user.id, user.foto));
           setCargarDatos(false);
         }
       } catch (error) {
@@ -49,9 +49,9 @@ export default function Profile({ navigation }) {
       }
     };
     obtenerUsuario();
-  }, [usuario]);
+  }, []);
 
-  if (!cargarDatos) {
+  if (!cargarDatos && user) {
     return (
       <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
         <View style={{ gap: 20 }}>
@@ -60,7 +60,7 @@ export default function Profile({ navigation }) {
               <Image style={styles.icon} src={`${userImage}`} />
             </View>
             <StyledText textAlign="center" medium>
-              {usuario.username}
+              {user.username}
             </StyledText>
             <TouchableOpacity
               style={styles.changeLabel}
@@ -76,15 +76,15 @@ export default function Profile({ navigation }) {
           <View style={styles.form}>
             <View>
               <StyledText extraSmall>Nombre</StyledText>
-              <StyledTextInput editable={false} value={usuario.nombre} />
+              <StyledTextInput editable={false} value={user.nombre} />
             </View>
             <View>
               <StyledText extraSmall>Cedula</StyledText>
-              <StyledTextInput editable={false} value={usuario.cedula} />
+              <StyledTextInput editable={false} value={user.cedula} />
             </View>
             <View>
               <StyledText extraSmall>Telefono</StyledText>
-              <StyledTextInput editable={false} value={usuario.telefono} />
+              <StyledTextInput editable={false} value={user.telefono} />
             </View>
             <View>
               <StyledText extraSmall>
@@ -93,7 +93,7 @@ export default function Profile({ navigation }) {
               <StyledTextInput
                 editable={false}
                 emailAddress
-                value={usuario.email}
+                value={user.email}
               />
             </View>
             <View>
@@ -101,7 +101,10 @@ export default function Profile({ navigation }) {
                 text={"Cerrar sesion"}
                 handleOnPress={async () => {
                   setIsLoading(true);
+
+                  // Se elimina el usuario del local storage
                   await eliminarUsuarioLocal();
+                  
                   showCustomToast(
                     "success",
                     "Cerrar sesión completado!",
@@ -109,6 +112,8 @@ export default function Profile({ navigation }) {
                   );
                   setIsLoading(false);
                   setTimeout(() => {
+                    // Se elimina el usuario del contexto
+                    eliminarUsuario()
                     navigation.navigate("SignIn");
                   }, 1000);
                 }}

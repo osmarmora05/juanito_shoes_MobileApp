@@ -30,24 +30,24 @@ import {
   agregarUsuarioLocal,
   cargarUsuarioLocal,
 } from "../../localStorage/index.local";
+import { useUser } from "../../hooks/useUser";
 
 export default function EditProfile({ navigation }) {
+  const { user, agregarUsuario } = useUser()
+
+
   const [userImage, setUserImage] = useState(null);
-  const [usuario, setUsuario] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [cargandoDatos, setCargandoDatos] = useState(true);
 
   useEffect(() => {
     const obtenerUsuario = async () => {
       try {
-        const usuarioLocal = await cargarUsuarioLocal();
-
-        setUsuario(usuarioLocal);
         setUserImage(
           getImagen(
-            usuarioLocal.collectionId,
-            usuarioLocal.id,
-            usuarioLocal.foto
+            user.collectionId,
+            user.id,
+            user.foto
           )
         );
         setCargandoDatos(false);
@@ -64,6 +64,7 @@ export default function EditProfile({ navigation }) {
 
   const handleFormSubmit = async (values) => {
     setIsLoading(true);
+    console.log("values", values);
 
     const credentials = await loginUsuario(values.email, values.oldPassword);
 
@@ -82,10 +83,13 @@ export default function EditProfile({ navigation }) {
 
     // Validar si los campos son correctos
     if (validarCampos(values, userImage)) {
-      const registro = await actualizarUsuario(values, userImage, usuario.id);
+      const registro = await actualizarUsuario(values, userImage, user.id);
 
       if (registro) {
+        // Actualiza el usuario en el contexto y en el AsyncStorage
         await agregarUsuarioLocal(registro);
+        agregarUsuario(registro);
+        
 
         setIsLoading(false);
         showCustomToast(
@@ -115,14 +119,14 @@ export default function EditProfile({ navigation }) {
             <View style={styles.container}>
               <Formik
                 initialValues={{
-                  username: usuario.username,
-                  email: usuario.email,
-                  password: usuario.password,
-                  passwordConfirm: usuario.passwordConfirm,
-                  oldPassword: usuario.oldPassword,
-                  name: usuario.nombre,
-                  cedula: usuario.cedula,
-                  telefono: usuario.telefono,
+                  username: user.username,
+                  email: user.email,
+                  password: user.password,
+                  passwordConfirm: user.passwordConfirm,
+                  oldPassword: user.oldPassword,
+                  name: user.nombre,
+                  cedula: user.cedula,
+                  telefono: user.telefono,
                 }}
                 onSubmit={handleFormSubmit}
               >
