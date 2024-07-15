@@ -20,13 +20,14 @@ const Header = ({ navigation }) => {
           <Cart />
         </TouchableOpacity>
       </View>
-      <InputIcon
-        icon={<Buscar />}
-        placeholder="Buscar zapatos..."
-        onPress={() => {
-          console.log("Pronto");
-        }}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+        <InputIcon
+          icon={<Buscar />}
+          placeholder="Buscar zapatos..."
+          onPress={() => navigation.navigate("Search")}
+        />
+      </TouchableOpacity>
+
       {/* Componente del categorías */}
     </View>
   );

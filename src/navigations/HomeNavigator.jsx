@@ -4,6 +4,7 @@ import ShoppingCart from "../screens/home/ShoppingCart";
 import BottomTabNavigator from "./BottomTabNavigator";
 import EditProfile from "../screens/home/EditProfile";
 import Congratulations from "../screens/home/Congratulations";
+import Search from "../screens/home/Search";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,13 @@ export default function HomeNavigator() {
       <Stack.Screen
         name="Congratulations"
         component={Congratulations}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
         options={{
           headerShown: false,
         }}

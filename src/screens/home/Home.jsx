@@ -74,17 +74,13 @@ export default function Home({ navigation }) {
 
   const getShoes = async (reset = false) => {
     try {
-      console.log("getShoes");
       setLoading(true);
       const result = await getLimitedInventario(currentPage);
-      console.log(result);
       if (result == null || result.length == 0) {
-        console.log("Dentro del if");
         setLoading(false);
         setIsShoes(false);
         return;
       }
-
 
       const arraysOfCardObject = createArraysOfCardObjects(result);
 
@@ -101,7 +97,7 @@ export default function Home({ navigation }) {
       setRefreshing(false);
       setIsShoes(true);
     } catch (e) {
-      console.log("There was an error in getShoes ", e);
+      console.log("There was an error in getShoes - Home Screen", e);
       throw e;
     }
   };
@@ -163,30 +159,17 @@ export default function Home({ navigation }) {
     return (
       <View>
         <Header navigation={navigation} />
-        <ScrollView
-          horizontal
-          style={{
-            maxHeight: 45,
-            paddingLeft: 20,
-            paddingRight: 20,
-          }}
-        >
+        <ScrollView horizontal style={styles.scrollView}>
           {categories.map((category, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => handleButtonPress(category)}
             >
               <View
-                style={{
-                  backgroundColor:
-                    selectedButton === category
-                      ? theme.colors.bg.primary
-                      : theme.colors.bg.default,
-                  paddingHorizontal: 20,
-                  paddingVertical: 10,
-                  marginRight: 10,
-                  borderRadius: 5,
-                }}
+                style={[
+                  styles.categoryButton,
+                  selectedButton === category && styles.selectedCategoryButton,
+                ]}
               >
                 <StyledText
                   {...(selectedButton === category
@@ -207,8 +190,6 @@ export default function Home({ navigation }) {
     if (selectedButton === "Todos") {
       getShoes();
     }
-
-    console.log(currentPage);
   }, [currentPage]);
 
   // useEffect(() => {
@@ -249,4 +230,19 @@ const styles = StyleSheet.create({
   productCardcontainer: {
     margin: 20,
   },
-})
+  scrollView: {
+    maxHeight: 45,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  categoryButton: {
+    backgroundColor: theme.colors.bg.default,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginRight: 10,
+    borderRadius: 5,
+  },
+  selectedCategoryButton: {
+    backgroundColor: theme.colors.bg.primary,
+  },
+});

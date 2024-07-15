@@ -142,4 +142,81 @@ async function modificarInventario(cart) {
   console.log("record", record);
 }
 
-export { getLimitedInventario, modificarInventario };
+/* 
+  'getSpecificInventory': Retorna la existencia de un zapato en especifico
+*/
+
+async function getSpecificInventory(shoeName) {
+  try {
+    // Objeto aux que almacena los zapatos en existencias
+    const k = {};
+    const catalogo = await pb.collection("Catalogo").getFullList({
+      filter: `nombre ~ "${shoeName}"`,
+    });
+
+    // Validamos que la consulta devuelva alguna valor
+
+    if (!catalogo || catalogo.length === 0) {
+      return null;
+    }
+
+    const promises = catalogo.map(async (item) => {
+      const catalogoId = item.id;
+
+      const modelos = await pb.collection("Modelos").getFullList({
+        filter: `estado = "Activo" && catalogo_id = "${catalogoId}"`,
+      });
+
+      // Validamos que la consulta devuelva alguna valor
+      if (!modelos || modelos.length === 0) {
+        return null;
+      }
+      const modeloId = modelos[0].id;
+
+      const inventario = await pb.collection("Inventario").getFullList({
+        filter: `modelo_id = "${modeloId}"`,
+        // Hacemos un expand de las llaves foráneas, para así poder acceder
+        // a columnas interesante de esa tabla
+        expand:
+          "modelo_id.catalogo_id.marca_id,modelo_id.catalogo_id.categoria_id",
+      });
+
+      if (inventario.length > 0) {
+        const inventarioItems = await Promise.all(
+          // Obtenemos informacion relevante de la tabla inventario
+          inventario.map(async (invItem) => ({
+            id_inventario: invItem.id,
+            cantidad: invItem.cantidad,
+            // Obtenemos imagen de cada registro
+            imagen: await getImageShoe(invItem.id),
+            talla: invItem.talla,
+            color: invItem.color,
+            id_modelo: invItem.expand.modelo_id.id,
+            modelo: invItem.expand.modelo_id.modelo,
+            precio: invItem.expand.modelo_id.precio,
+            // Habran tablas que esten relacionadas a multiples tablas como en este caso, que el modelo_id es una llave foranea de la tabla Inventario, para poder acceder por ejemplo a la descripcion que tiene un zapato, tendremos que acceder a la tabla modelos primeramente, para poder hace eso desde la tabla inventario, hacemos un expand de la llave foranea modelo_id, luego podemos acceder a la tabla modelos, que esta relacionada a la tabla catalogo que atravez de su llave foranea catalogo_id, podemos acceder a la descripcion que esta en la tabla catalogo
+            descripcion:
+              invItem.expand.modelo_id.expand.catalogo_id.descripcion,
+            nombre: invItem.expand.modelo_id.expand.catalogo_id.nombre,
+            nombre_categoria:
+              invItem.expand.modelo_id.expand.catalogo_id.expand.categoria_id
+                .nombre_categoria,
+            nombre_marca:
+              invItem.expand.modelo_id.expand.catalogo_id.expand.marca_id
+                .nombre_marca,
+          }))
+        );
+
+        // Agregamos el objeto creado inventarioItems en el objeto K
+        k[modeloId] = inventarioItems;
+      }
+    });
+
+    await Promise.all(promises);
+    return Object.values(k);
+  } catch (e) {
+    console.log("There was an error in getSpecificInventory ", e);
+    throw e;
+  }
+}
+export { getLimitedInventario, modificarInventario, getSpecificInventory };

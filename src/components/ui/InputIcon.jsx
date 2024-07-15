@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
 
-const InputIcon = ({ placeholder, onChangeText, value, onPress, icon }) => {
+const InputIcon = ({ placeholder, onChangeText, value, onPress, icon, autofocus }) => {
   return (
     <View
       style={{
@@ -18,12 +18,14 @@ const InputIcon = ({ placeholder, onChangeText, value, onPress, icon }) => {
         elevation: 5,
       }}
     >
-      <TouchableOpacity onPress={onPress}>{icon}</TouchableOpacity>
+      <TouchableOpacity>{icon}</TouchableOpacity>
       <TextInput
         placeholder={placeholder}
         style={{ flex: 1, padding: 10 }}
         onChangeText={onChangeText}
         value={value}
+        autoFocus={autofocus ? true : false}
+        onPress={onPress}
       />
     </View>
   );

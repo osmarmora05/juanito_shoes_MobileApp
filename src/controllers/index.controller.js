@@ -5,7 +5,7 @@ import {
   crearUsuario,
 } from "./usuarios.controller";
 
-import { getLimitedInventario } from "./inventario.controller";
+import { getLimitedInventario, getSpecificInventory } from "./inventario.controller";
 
 import { agregarPedido } from "./pedidos.controller";
 
@@ -14,6 +14,7 @@ import { agregarMovimiento } from "./movimientos.controller";
 export {
   getImagen,
   getLimitedInventario,
+  getSpecificInventory,
   loginUsuario,
   actualizarUsuario,
   crearUsuario,
