@@ -1,43 +1,55 @@
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
-import Heading from '@theme/Heading';
-import styles from './index.module.css';
+import clsx from "clsx";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
+import styles from "./index.module.css";
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
+    <>
+      <main className={clsx(styles.contenedor_principal)}>
+        <img src="img/zapato.svg" className={clsx(styles.zapato)} />
+        <img src="img/zapato3.svg" className={clsx(styles.zapato3)} />
+        <img src="img/zapato4.svg" className={clsx(styles.zapato4)} />
+        <section className={clsx(styles.contenedor_descripcion)}>
+          <img src="img/zapato2.svg" className={clsx(styles.zapato2)} />
+          <h1>{siteConfig.title}</h1>
+          <p>
+            Juanito Shoes es una para empresa dedicada a la venta de calzado. La
+            aplicación está centrada en el cliente y permite a los usuarios
+            realizar pedidos de manera fácil y eficiente.
+          </p>
+          <div className={clsx(styles.contenedor_botones)}>
+            <Link href="./docs/intro" className={clsx(styles.empezar)}>
+              Empezar
+            </Link>
+            <Link href="https://github.com/osmarmora05/juanito_shoes_MobileApp" className={clsx(styles.github)}>
+              Ver Github
+            </Link>
+          </div>
+        </section>
+        <picture className={clsx(styles.contenedor_imagen)}>
+          <img src="img/Web.png" className={clsx(styles.background_web)} />
+          <img
+            src="img/Telefono.svg"
+            className={clsx(styles.background_telefono)}
+          />
+        </picture>
+      </main>
+    </>
   );
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Juanito Shoes es una empresa dedicada a la venta de calzadoJuanito Shoes es una para empresa dedicada a la venta de calzado. La aplicación está centrada en el cliente y permite a los usuarios realizar pedidos de manera fácil y eficiente.
+
+"
+    >
       <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
     </Layout>
   );
 }
