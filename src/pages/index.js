@@ -9,11 +9,11 @@ function HomepageHeader() {
   return (
     <>
       <main className={clsx(styles.contenedor_principal)}>
-        <img src="img/zapato.svg" className={clsx(styles.zapato)} />
-        <img src="img/zapato3.svg" className={clsx(styles.zapato3)} />
-        <img src="img/zapato4.svg" className={clsx(styles.zapato4)} />
+        <img src="img/Zapato.svg" className={clsx(styles.zapato)} />
+        <img src="img/Zapato3.svg" className={clsx(styles.zapato3)} />
+        <img src="img/Zapato4.svg" className={clsx(styles.zapato4)} />
         <section className={clsx(styles.contenedor_descripcion)}>
-          <img src="img/zapato2.svg" className={clsx(styles.zapato2)} />
+          <img src="img/Zapato2.svg" className={clsx(styles.zapato2)} />
           <h1>{siteConfig.title}</h1>
           <p>
             Juanito Shoes es una para empresa dedicada a la venta de calzado. La
