@@ -2,46 +2,23 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introducción
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## 👋 Descripción general
+Juanito Shoes es una tienda virtual que opera tanto a través de una aplicación web como de una aplicación móvil, y está dedicada a la venta de calzado. Esta aplicación se ha desarrollado con un enfoque centrado en el cliente, proporcionando una experiencia de compra eficiente, personalizada y fácil de usar.
 
-## Getting Started
+![Banner](./img/banner.jpg)
 
-Get started by **creating a new site**.
+## ⚙️ Funcionalidades Principales
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+### 🛒 Realización de Pedidos
+La aplicación de Juanito Shoes ofrece la posibilidad de realizar pedidos en línea de manera sencilla y rápida. Los usuarios pueden navegar por una amplia selección de calzado, seleccionar los productos de su interés y realizar pedidos en línea de manera cómoda y segura.
 
-### What you'll need
+### 📜 Historial de Compras
+Además, la aplicación mantiene un historial detallado de todas las compras realizadas por el usuario, permitiéndole revisar sus pedidos anteriores y gestionar futuras compras con mayor facilidad.
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+### 🛠️ Configuración de Cuenta
+Asimismo, se incluye un apartado dedicado a la configuración de cuenta, donde los usuarios pueden personalizar su perfil, actualizar su información personal y gestionar sus preferencias.
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+## 🛍️ Proceso de Compra
+ Los usuarios realizan sus pedidos a través de la aplicación, reservando los productos que desean adquirir. Una vez que el pedido está listo, el usuario se dirige a la tienda física para recoger sus productos y realizar el pago en persona. Este modelo híbrido permite a los clientes asegurar su compra en línea y verificar la calidad y ajuste de los productos al momento de la recogida.
