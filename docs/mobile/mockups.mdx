@@ -2,51 +2,340 @@ import BrowserWindow from "../../src/components/BrowserWindow/index";
 
 # Maquetas
 
-## Inicio de sesión, Crear cuenta
+## 1) Inicio de sesión
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-
+El inicio de sesión es esencial para asegurar que los usuarios puedan acceder a la aplicación de manera segura. Permite a los usuarios existentes ingresar con sus credenciales, y ofrece a los nuevos usuarios la posibilidad de crear una cuenta. Este proceso es crucial para personalizar la experiencia del usuario y mantener la seguridad de los datos personales.
 
 <BrowserWindow url="http://localhost:3000">
 
-
-<div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+<div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", gap:"10px"}}>
 <img
-  src={require('./img/mocks/login/Sign-in.png').default}
-  alt="Example banner"
+style={{border: "1px solid black", borderRadius: "20px"}}
+  src={require('./img/mocks/login/Login.jpg').default}
+  alt="Login"
   width={300}
 />
 
 <img
-  src={require('./img/mocks/login/Register-account.png').default}
-  alt="Example banner"
-  width={300}
+style={{border: "1px solid black", borderRadius: "20px"}}
+
+src={require('./img/mocks/login/Registrar.jpg').default}
+alt="Registrar"
+width={300}
 />
+
 </div>
-
 
 </BrowserWindow>
 
-# Casita
+### Inicio de sesión
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+Esta pantalla permite a los usuarios ingresar a la aplicación utilizando su correo electrónico y contraseña. Si las credenciales ingresadas son incorrectas, se mostrará un mensaje de error informando al usuario. Si las credenciales son correctas, se mostrará un mensaje de éxito y el usuario podrá acceder a la aplicación.
 
 <BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/login/Error.jpg").default}
+      alt="Error"
+      width={300}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/login/Correcto.jpg").default}
+      alt="Correcto"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
 
+### Registrar
 
-<div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-<img
-  src={require('./img/mocks/login/Sign-in.png').default}
-  alt="Example banner"
-  width={300}
-/>
+El registro de sesión esta dedicada a la creación de nuevas cuentas de usuario. Los usuarios deben proporcionar información personal como nombre, cédula, teléfono, foto de perfil, correo electrónico, nombre de usuario y crear una contraseña segura.
 
-<img
-  src={require('./img/mocks/login/Register-account.png').default}
-  alt="Example banner"
-  width={300}
-/>
-</div>
+En esta pantalla, pueden surgir varios mensajes de error, tales como: campos obligatorios sin completar, contraseña con menos de 8 caracteres, contraseñas que no coinciden al confirmarlas, y el uso de un correo electrónico o nombre de usuario que ya existe.
 
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/login/Registrar1.jpg").default}
+      alt="Error"
+      width={200}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/login/Registrar2.jpg").default}
+      alt="Error"
+      width={200}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/login/Registrar3.jpg").default}
+      alt="Error"
+      width={200}
+    />
+  </div>
+</BrowserWindow>
 
+## 2) Navegación de la aplicación
+
+La navegación de la aplicación está diseñada para facilitar que los usuarios se desplacen por sus diferentes secciones con un menú intuitivo y bien organizado. El usuario puede acceder a las estas secciones:
+
+### Menú principal
+
+En el menú principal los usuarios pueden acceder fácilmente al historial de pedidos, su perfil, las categorías de productos y las herramientas de búsqueda. Esto mejora la experiencia del usuario y hace que la interacción con la aplicación sea más fluida y eficiente.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Principal.jpg").default}
+      alt="Principal"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+### Historial de pedidos
+
+En el historial de pedidos, los usuarios pueden revisar sus compras anteriores. Los usuarios pueden seleccionar cualquier pedido para ver detalles como la fecha del pedido, los productos comprados y el total pagado.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Historial.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/detalle del pedido/Detalle_pedido.jpg").default}
+      alt="Detalle_pedido"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+### Perfil de usuario
+
+Pantalla donde los usuarios pueden ver y editar su información personal, como nombre, telefono, nombre de usuario y su contraseña.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Editar_perfil.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Editar_perfil2.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+### Filtrado por categorías de zapatos
+
+Funcionalidad que permite a los usuarios buscar zapatos específicos según varias categorías. Las categorías pueden incluir tipo de zapato (Todos, casuales y tennis). Esto ayuda a los usuarios a encontrar rápidamente lo que buscan dentro de una amplia gama de productos.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Principal.jpg").default}
+      alt="Historial"
+      width={200}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Filtro_categoria.jpg").default}
+      alt="Filtro_categoria"
+      width={200}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Filtro_categoria2.jpg").default}
+      alt="Filtro_categoria"
+      width={200}
+    />
+  </div>
+</BrowserWindow>
+
+### Buscador de zapatos
+
+Herramienta de búsqueda que permite a los usuarios encontrar zapatos introduciendo el nombre del producto. Si el nombre ingresado no corresponde a ningún zapato disponible en el inventario, se mostrará un mensaje indicando que el zapato no está disponible.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Buscar.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Buscar1.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+## 3) Detalles de un producto
+
+La sección de detalles del producto proporciona una vista completa y detallada de cada zapato disponible. Aquí, los usuarios pueden ver imágenes, descripciones, y especificaciones del producto, así como seleccionar opciones como talla y color. Esta sección es crucial para ayudar a los usuarios a tomar decisiones informadas antes de realizar una compra.
+
+### Cambio de talla y color
+
+En la pantalla de detalles de cada producto, los usuarios pueden seleccionar diferentes opciones de talla y color disponibles para ese zapato específico. Esto permite a los usuarios personalizar su elección según sus preferencias y asi agregargalo al carrito.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/detalles del producto/Detalle1.jpg").default}
+      alt="Historial"
+      width={200}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/detalles del producto/Detalle2.jpg").default}
+      alt="Historial"
+      width={200}
+    /> <img style={{ border: "1px solid black", borderRadius: "20px" }} src={require("./img/mocks/detalles del producto/Detalle3.jpg").default} alt="Historial" width={200} />
+  </div>
+</BrowserWindow>
+
+## 4) Carrito
+
+El carrito es donde los usuarios revisan y gestionan sus selecciones antes de proceder con la compra. Permite ajustar las cantidades de productos, verificar los precios y el total de la compra, y finalmente aceptar la compra. Este módulo es fundamental para finalizar la experiencia de compra de manera ordenada y clara.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/carrito/Carrito.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+### Compra exitosa
+
+Pantalla que se muestra después de que un usuario ha completado una compra.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/carrito/Completo.jpg").default}
+      alt="Completo"
+      width={300}
+    />
+  </div>
+</BrowserWindow>
+
+## 5)Detalles del pedido
+
+Vista detallada del contenido del carrito de compras, mostrando todos los artículos seleccionados para la compra. Incluye información como la cantidad de cada producto, precio individual, y el total de la compra. Los usuarios pueden revisar asegurando que todo esté correcto.
+
+<BrowserWindow url="http://localhost:3000">
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "10px",
+    }}
+  >
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/menu principal/Historial.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+    <img
+      style={{ border: "1px solid black", borderRadius: "20px" }}
+      src={require("./img/mocks/detalle del pedido/Detalle_pedido.jpg").default}
+      alt="Historial"
+      width={300}
+    />
+  </div>
 </BrowserWindow>
