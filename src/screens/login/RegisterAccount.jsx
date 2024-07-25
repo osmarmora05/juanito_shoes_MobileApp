@@ -25,8 +25,11 @@ import { theme } from "../../theme";
 import { showCustomToast, validarCampos } from "../../utils";
 import { crearUsuario } from "../../controllers/index.controller";
 import { agregarUsuarioLocal } from "../../localStorage/index.local";
+import { useUser } from "../../hooks/useUser";
 
 export default function RegisterAccount({ navigation }) {
+  const { agregarUsuario } = useUser()
+
   const [isLoading, setIsLoading] = useState(false);
   const [userImage, setUserImage] = useState(null);
 
@@ -50,6 +53,11 @@ export default function RegisterAccount({ navigation }) {
         );
         // Agrega al usuario en el registro de sesión y mantenerlo logeado al usuario creado
         await agregarUsuarioLocal(registro);
+
+        // Guardarlo en el contexto
+        agregarUsuario(registro);
+
+
         setTimeout(() => {
           navigation.navigate("HomeTab");
         }, 2000);

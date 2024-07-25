@@ -20,6 +20,9 @@ export default function OrderDetails() {
   const { movimientoPedido, fetchMovimientos, inventarios, loading } =
     useOrderDetails();
 
+    console.log("movimientoPedido", movimientoPedido)
+    console.log("inventarios", inventarios)
+
   useEffect(() => {
     fetchMovimientos({ id });
   }, [id]);
@@ -30,6 +33,7 @@ export default function OrderDetails() {
         <StyledText medium>Detalles del pedido</StyledText>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {movimientoPedido.map((movimiento, index) => {
+            // Se obtiene el inventario del pedido segun el index del movimiento del pedido actual
             const inventarioPedido = inventarios[index];
             const imagen = inventarioPedido
               ? getImagen(
@@ -65,12 +69,12 @@ export default function OrderDetails() {
         <View style={styles.sub_container_cart}>
           <View style={styles.row}>
             <Text style={styles.label}>Subtotal</Text>
-            <Text style={styles.value}>$ {sub_total}</Text>
+            <Text style={styles.value}>$ {(sub_total).toFixed(2)}</Text>
           </View>
           <View style={styles.separator} />
           <View style={styles.row}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>$ {total}</Text>
+            <Text style={styles.totalValue}>$ {(total).toFixed(2)}</Text>
           </View>
         </View>
       </View>

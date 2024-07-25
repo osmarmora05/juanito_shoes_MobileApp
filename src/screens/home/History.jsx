@@ -31,6 +31,7 @@ export default function History({ navigation }) {
           <ScrollView style={{ marginTop: 10 }}>
             {pedidos.map((pedido, index) => (
               <MotiView
+                key={pedido.id}
                 from={{ opacity: 0, translateY: 50 }}
                 animate={{ opacity: 1, translateY: 0 }}
                 transition={{ delay: index * 200 }}
@@ -43,7 +44,6 @@ export default function History({ navigation }) {
                       sub_total: pedido.sub_total,
                     })
                   }
-                  key={pedido.id}
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -70,18 +70,6 @@ export default function History({ navigation }) {
           No hay pedidos aún
         </StyledText>
       )}
-      {/* <Modal
-        transparent={true}
-        animationType="none"
-        visible={loading}
-        onRequestClose={() => {}}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.activityIndicatorWrapper}>
-            <ActivityIndicator size="large" color={theme.colors.primary} />
-          </View>
-        </View>
-      </Modal> */}
     </View>
   );
 }

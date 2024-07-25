@@ -4,13 +4,13 @@ import StyledText from "./ui/StyledText";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function OrderCard({
-  imagen,
-  nombre,
-  color,
-  talla,
-  cantidad,
-  precio,
-  time,
+  imagen = "Imagen no disponible",
+  nombre = "Nombre no disponible",
+  color = "Color no disponible",
+  talla = "Talla no disponible",
+  cantidad = 1,
+  precio = "Precio no disponible",
+  time = 0,
 }) {
   return (
     <>
