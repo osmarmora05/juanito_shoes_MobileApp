@@ -64,6 +64,7 @@ Para comenzar con "juanito_shoes_MobileApp", siga estos sencillos pasos de insta
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo" width="60px"/>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/React.svg/1200px-React.svg.png" alt="React Logo" width="60px"/>
+<img src="https://github.com/expo/expo/raw/main/.github/resources/banner.png" alt="Expo Logo" width="60px"/>
 
 </div>
 
@@ -73,5 +74,7 @@ Para comenzar con "juanito_shoes_MobileApp", siga estos sencillos pasos de insta
 
 # Autores
 
+- Carlos Eduardo Chavarría Centeno [@EdCenten0](https://github.com/EdCenten0)♿
+- Francisco de Jesús Meléndez Simplina [@FranciscoMelen10](https://github.com/FranciscoMelen10)⚽
+- Isabel Denisse Aguilar Vílchez [@denisseaguilar](https://github.com/denisseaguilar)🌸
 - Osmar Adrian Mora Cerna [@osmarmora05](https://github.com/osmarmora05)
-- Andrew Jahaziel Garcia Morales [@AndrewJazi](https://github.com/AndrewJazi)
