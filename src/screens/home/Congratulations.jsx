@@ -30,6 +30,7 @@ export default function Congratulations({ navigation }) {
         ¡Felicidades!
       </StyledText>
       <StyledText medium>Tu orden esta lista!</StyledText>
+      <Text style={{ color: "red", fontWeight: "900" }}>NO SE ACEPTAN DEVOLUCIONES</Text>
       <MotiView
         from={{ opacity: 0, translateY: 50 }}
         animate={{ opacity: 1, translateY: 0 }}

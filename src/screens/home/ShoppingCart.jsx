@@ -41,7 +41,7 @@ export default function ShoppingCart({ navigation }) {
     // NewTotal tendra el valor total de los productos, multiplicando la cantidad de productos que lleva el usuario y el precio
     let newTotal = 0;
     cart.forEach((item) => {
-      newTotal += count * item.precio;
+      newTotal += item.cantidad_compra * item.precio;
     });
     setTotal(newTotal);
   }, [cart, count]);
@@ -125,7 +125,7 @@ export default function ShoppingCart({ navigation }) {
             <View style={styles.row}>
               <Text style={styles.totalLabel}>Total</Text>
               <Text style={styles.totalValue}>
-                $ {(total + total * 0.15).toFixed(2)}
+                $ {(total + (total * 0.15)).toFixed(2)}
               </Text>
             </View>
           </View>
